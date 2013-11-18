@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load url from future %}
+{# <body> #}
+{% block body %}
+  {% block main %}
+  {% endblock %}
+  {% block footer %}
+    {% include "footer.html" %}
+  {% endblock %}
+{% endblock %}
+{# </body> #}
