@@ -1,6 +1,6 @@
 # Django settings for geoport project.
 import os
-import mongoengine
+
 
 PROJECT_PATH = \
 os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
@@ -84,7 +84,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'dl*h)^m%dr#_i!e4%hdxvsquhxg1@o2^*!h8m)fd!%!z-il0i='
+SECRET_KEY = ''
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -119,7 +119,6 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mongoengine.django.mongo_auth',
@@ -171,20 +170,31 @@ LOGIN_REDIRECT_URL = "/"
 
 # MongoEngine authentication settings
 AUTHENTICATION_BACKENDS = (
-    'social.backends.facebook.OAuth2',
+    'social.backends.facebook.FacebookOAuth2',
     'mongoengine.django.auth.MongoEngineBackend',
 )
 
 AUTH_USER_MODEL = 'mongo_auth.MongoUser'
-MONGOENGINE_USER_DOCUMENT = 'mongoengine.django.auth.User'
+MONGOENGINE_USER_DOCUMENT = 'accounts.models.GeoPortUser'
+
+# MongoEngine session settings
+SESSION_ENGINE = 'mongoengine.django.sessions'
+MONGOENGINE_SESSION_DATA_ENCODE = False
 
 # Python Social Auth for MongoEngine
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.me.models.DjangoStorage'
 SOCIAL_AUTH_USER_MODEL = MONGOENGINE_USER_DOCUMENT
 
 
+LOGIN_REDIRECT_URL = "/"
+
+
+# End-of-file imports
 # Credentials
 try:
     from .credentials import SECRET_KEY
 except:
-    pass
+    from .credentials_production import SECRET_KEY
+
+# Connections:
+from .connections import *

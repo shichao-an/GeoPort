@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Project name</a>
+      <a class="navbar-brand" href="/">{% include "global/project_name.html" %}</a>
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -29,10 +29,9 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="../navbar/">Default</a></li>
-        <li class="active"><a href="./">Static top</a></li>
-        <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+        {% include "navbar/user.html" %}
       </ul>
     </div><!--/.nav-collapse -->
   </div>
 </div>
+

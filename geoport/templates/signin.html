@@ -1,6 +1,9 @@
 {% extends "body.html" %}
 {% load url from future %}
-{% block css %}{% endblock %}
+{% load staticfiles %}
+{% block css %}
+  <link rel="stylesheet" href="{% static "css/signin.css" %}">
+{% endblock %}
 {% block main %}
 
   <div class="container">

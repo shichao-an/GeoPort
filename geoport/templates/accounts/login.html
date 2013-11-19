@@ -1,0 +1,22 @@
+{% extends "accounts/base.html" %}
+{% load url from future %} 
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<form class="form-signin" method="post" action="{% url 'accounts:login' %}">
+{% if form.errors %}
+  {{ form.non_field_errors }}
+{% endif %}
+  {% csrf_token %}
+  <h2 class="form-signin-heading">Please sign in</h2>
+  {{ form.username.errors }}
+  <input name="username" type="text" class="form-control" placeholder="Username" required autofocus>
+  {{ form.password.errors }}
+  <input name="password" type="password" class="form-control" placeholder="Password" required>
+  <input type="hidden" name="next" value="{{ next }}" />
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  <br/>
+  <a href="{% url 'accounts:signup' %}">Create an account</a>
+</form>
+
+{% endblock %}
