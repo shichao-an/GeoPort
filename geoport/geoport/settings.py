@@ -125,7 +125,8 @@ INSTALLED_APPS = (
     'social.apps.django_app.me',
 )
 
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+# Use json_util to encode and decode BSON objects
+SESSION_SERIALIZER = 'geoport.utils.JSONSerializer'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
