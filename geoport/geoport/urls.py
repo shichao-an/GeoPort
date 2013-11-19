@@ -8,6 +8,5 @@ urlpatterns = patterns('',
     url(r'^$', 'portal.views.index', name='portal'),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url('', include('social.apps.django_app.urls', namespace='social')),
-    url('', include('social.apps.django_app.urls', namespace='social')),
 
 )

@@ -17,6 +17,8 @@
   <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
   <br/>
   <a href="{% url 'accounts:signup' %}">Create an account</a>
+  <br/>
+  <a href="{% url 'social:begin' 'facebook' %}">Connect Facebook</a>
 </form>
 
 {% endblock %}
