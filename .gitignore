@@ -3,3 +3,4 @@
 credentials.py
 credentials_production.py
 settings_production.py
+deploy.sh
