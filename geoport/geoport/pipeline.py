@@ -13,4 +13,3 @@ def retrieve_picture(strategy, details, response, user=None, *args, **kwargs):
     if isinstance(strategy.backend, FacebookOAuth2):
         if user:
             pass
-
