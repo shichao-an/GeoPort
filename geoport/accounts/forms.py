@@ -1,6 +1,6 @@
 from django import forms
 #from django.contrib.auth.forms import UserCreationForm as _UserCreationForm
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 from mongodbforms import DocumentForm
 from accounts.models import User
 
@@ -15,18 +15,22 @@ class UserCreationForm(DocumentForm):
         'duplicate_username': _("A user with that username already exists."),
         'password_mismatch': _("The two password fields didn't match."),
     }
-    username = forms.RegexField(label=_("Username"), max_length=30,
+    username = forms.RegexField(
+        label=_("Username"), max_length=30,
         regex=r'^[\w.@+-]+$',
         help_text=_("Required. 30 characters or fewer. Letters, digits and "
-                      "@/./+/-/_ only."),
+                    "@/./+/-/_ only."),
         error_messages={
             'invalid': _("This value may contain only letters, numbers and "
-                         "@/./+/-/_ characters.")})
+                         "@/./+/-/_ characters.")}
+    )
     first_name = forms.CharField(label=_("First name"), max_length=255)
     last_name = forms.CharField(label=_("Last name"), max_length=255)
-    password1 = forms.CharField(label=_("Password"),
+    password1 = forms.CharField(
+        label=_("Password"),
         widget=forms.PasswordInput)
-    password2 = forms.CharField(label=_("Password confirmation"),
+    password2 = forms.CharField(
+        label=_("Password confirmation"),
         widget=forms.PasswordInput,
         help_text=_("Enter the same password as above, for verification."))
 

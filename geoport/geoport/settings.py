@@ -80,7 +80,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    #'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -109,9 +109,6 @@ ROOT_URLCONF = 'geoport.urls'
 WSGI_APPLICATION = 'geoport.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_PATH, 'templates'),
 )
 
@@ -211,9 +208,9 @@ LOGIN_REDIRECT_URL = "/"
 # End-of-file imports
 # Credentials
 try:
-    from .credentials import SECRET_KEY
+    from .credentials import *
 except:
-    from .credentials_production import SECRET_KEY
+    from .credentials_production import *
 
 # Connections:
 from .connections import *

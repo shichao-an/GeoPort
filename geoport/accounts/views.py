@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from accounts.forms import UserCreationForm
 
+
 @login_required
 def index(request):
     """Index: /accounts/"""
@@ -26,8 +27,8 @@ def signup(request):
         return HttpResponseRedirect("/accounts/profile/")
     context = {}
     if request.method == 'POST':
-        form = UserCreationForm(request.POST) 
-        if form.is_valid(): 
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
             form.save()
             user = authenticate(
                 username=form.cleaned_data.get("username"),

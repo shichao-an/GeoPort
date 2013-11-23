@@ -8,7 +8,7 @@ class GeoPortUser(_User):
 
     This class defines custom fields in addition to the default User document.
 
-    Use mongoengine.django.mongo_auth.models.get_user_document() to get 
+    Use mongoengine.django.mongo_auth.models.get_user_document() to get
     this class.
 
     The collection name of this model is `User`, which is the same collection
