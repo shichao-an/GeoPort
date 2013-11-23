@@ -38,23 +38,10 @@ def signup(request):
     else:
         form = UserCreationForm()
     context['form'] = form
-    return render(request, 'accounts/signup.html', context)
+    return render(request, "accounts/signup.html", context)
 
 
 @login_required
 def profile(request):
     """Global portal: /accounts/profile/"""
-    return render(request, 'accounts/profile.html')
-
-
-@login_required
-def page(request, username):
-    """Global portal: /accounts/page/USERNAME"""
-    try:
-        user = User.objects.get(username=username)
-    except:
-        user = None
-    context = {'user': user}
-    return render(request, 'accounts/page.html', context)
-
-
+    return render(request, "accounts/profile.html")

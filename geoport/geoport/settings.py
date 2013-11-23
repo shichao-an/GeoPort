@@ -190,6 +190,20 @@ SOCIAL_AUTH_FACEBOOK_KEY = '377459322370371'
 SOCIAL_AUTH_FACEBOOK_SECRET = '669aeb4b3e8c4979e4bc3ccafe3e078f'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    'geoport.pipeline.retrieve_friends',
+    'geoport.pipeline.retrieve_picture',
+)
+
 
 LOGIN_REDIRECT_URL = "/"
 
