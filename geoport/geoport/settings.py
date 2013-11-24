@@ -50,7 +50,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -82,9 +82,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     #'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
-
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = ''
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -120,6 +117,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'mongoengine.django.mongo_auth',
     'social.apps.django_app.me',
+    'storages',
 )
 
 # Use json_util to encode and decode BSON objects
@@ -204,13 +202,15 @@ SOCIAL_AUTH_PIPELINE = (
 
 LOGIN_REDIRECT_URL = "/"
 
-
-# End-of-file imports
 # Credentials
 try:
     from .credentials import *
 except:
     from .credentials_production import *
 
+# Credentials dependent settings
+# django-storages settings are in settings_production.py
+
+# End-of-file imports
 # Connections:
 from .connections import *

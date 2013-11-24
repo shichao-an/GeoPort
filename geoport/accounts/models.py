@@ -1,4 +1,5 @@
 from mongoengine.django.auth import User as _User
+from mongoengine import (Document, ListField, IntField, ReferenceField)
 
 
 class GeoPortUser(_User):
@@ -22,3 +23,11 @@ class GeoPortUser(_User):
 # Alias of `GeoPortUser`
 # This makes sure get_user_document() equals `accounts.models.User`
 User = GeoPortUser
+
+
+class FacebookFriend(Document):
+    facebook_id = IntField()
+    friends = ListField(ReferenceField(User))
+    meta = {
+        'indexes': ['facebook_id']
+    }

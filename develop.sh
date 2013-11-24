@@ -1,4 +1,6 @@
 #!/bin/bash
+# This is the setup script for development environment.
+# Run this only once the first time you cloned the repository.
 
 pre_commit=".git/hooks/pre-commit"
 
