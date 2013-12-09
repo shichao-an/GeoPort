@@ -81,6 +81,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     #'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'djangobower.finders.BowerFinder',
 )
 
 # List of callables that know how to import templates from various sources.
@@ -118,6 +119,7 @@ INSTALLED_APPS = (
     'mongoengine.django.mongo_auth',
     'social.apps.django_app.me',
     'storages',
+    'djangobower',
 )
 
 # Use json_util to encode and decode BSON objects
@@ -202,6 +204,13 @@ SOCIAL_AUTH_PIPELINE = (
 
 LOGIN_REDIRECT_URL = "/"
 
+
+# django-bower
+BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_PATH, 'components')
+
+BOWER_INSTALLED_APPS = (
+    'bootstrap-hover-dropdown',
+)
 # Credentials
 try:
     from .credentials import *
