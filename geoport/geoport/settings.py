@@ -120,6 +120,9 @@ INSTALLED_APPS = (
     'social.apps.django_app.me',
     'storages',
     'djangobower',
+
+    # For autodiscover_tasks of Celery
+    'accounts',
 )
 
 # Use json_util to encode and decode BSON objects
@@ -197,8 +200,8 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
     'social.pipeline.user.user_details',
-    'geoport.pipeline.retrieve_friends',
-    'geoport.pipeline.retrieve_picture',
+    'accounts.pipeline.retrieve_friends',
+    'accounts.pipeline.retrieve_picture',
 )
 
 
@@ -211,6 +214,7 @@ BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_PATH, 'components')
 BOWER_INSTALLED_APPS = (
     'bootstrap-hover-dropdown',
 )
+
 # Credentials
 try:
     from .credentials import *
@@ -219,6 +223,13 @@ except:
 
 # Credentials dependent settings
 # django-storages settings are in settings_production.py
+
+# Credential-dependent settings starts
+# Celery
+BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+# Credential-dependent settings ends
 
 # End-of-file imports
 # Connections:
