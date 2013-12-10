@@ -5,3 +5,5 @@ credentials_production.py
 settings_production.py
 deploy.sh
 geoport/media
+*.log
+*.rdb

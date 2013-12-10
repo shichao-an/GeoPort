@@ -120,7 +120,7 @@ INSTALLED_APPS = (
     'social.apps.django_app.me',
     'storages',
     'djangobower',
-
+    'djsupervisor',
     # For autodiscover_tasks of Celery
     'accounts',
 )
