@@ -7,6 +7,14 @@ commands=(
     "mongod --auth"
     "redis-server"
 )
+usage="./run_servers.sh start|stop"
+
+
+if [ "$#" -ne 1 ]
+then
+    echo "$usage"
+    exit 1
+fi
 
 if [ "$1" = "start" ]
 then
@@ -15,12 +23,22 @@ then
         echo "$command"
         $command &
     done
+    geoport/manage.py supervisor &
+    exit 0
 fi
 
 if [ "$1" = "stop" ]
 then
+    geoport/manage.py supervisor shutdown
+    echo "supervisord is shut down."
     for command in "${commands[@]}"
     do
-        pgrep $(echo "$command" | cut -d " " -f 1) | xargs kill
+        cmd=$(echo "$command" | cut -d " " -f 1)
+        pgrep "$cmd" | xargs kill
+        echo "$cmd is stopped."
     done
+    exit 0
 fi
+
+echo "$usage"
+exit 1

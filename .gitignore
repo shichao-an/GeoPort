@@ -1,9 +1,13 @@
 *.py[cod]
 .DS_Store
+
+# Credentials and production
 credentials.py
 credentials_production.py
 settings_production.py
 deploy.sh
 geoport/media
+
+# Temporary files
 *.log
 *.rdb
