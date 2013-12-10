@@ -11,3 +11,4 @@ geoport/media
 # Temporary files
 *.log
 *.rdb
+*.pid

@@ -1,6 +1,7 @@
 # Custom pipeline functions for Python Social Auth Facebook backend
 import requests
 from social.backends.facebook import FacebookOAuth2
+from .tasks import save_social_friends
 
 
 FACEBOOK_API_URL = 'https://graph.facebook.com/me'
@@ -22,7 +23,7 @@ def retrieve_friends(strategy, details, response, user=None, is_new=False,
                 'access_token': access_token,
             }
             res = requests.get(FACEBOOK_API_URL, params=params).json()
-            print res['friends']['data']
+            save_social_friends.delay(user, res, 'facebook')
 
 
 def retrieve_picture(strategy, details, response, user=None, *args, **kwargs):
