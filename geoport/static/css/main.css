@@ -19,7 +19,7 @@ h6,
 }
 
 /* Custom navbar */
-/* http://smarchal.com/twbscolor/?bd=78aad6&bh=407aaa&cd=ffffff&ch=d6d6d6 */
+/* http://smarchal.com/twbscolor/?bd=78aad6&bh=428bca&cd=ffffff&ch=d6d6d6 */
 
 .navbar-default {
     background-color: #78aad6;
@@ -43,13 +43,13 @@ h6,
 .navbar-default .navbar-nav > .active > a:hover, 
 .navbar-default .navbar-nav > .active > a:focus {
     color: #d6d6d6;
-    background-color: #407aaa;
+    background-color: #428bca;
 }
 .navbar-default .navbar-nav > .open > a, 
 .navbar-default .navbar-nav > .open > a:hover, 
 .navbar-default .navbar-nav > .open > a:focus {
     color: #d6d6d6;
-    background-color: #407aaa;
+    background-color: #428bca;
 }
 .navbar-default .navbar-nav > .dropdown > a .caret {
     border-top-color: #ffffff;
@@ -67,11 +67,11 @@ h6,
     border-bottom-color: #d6d6d6;
 }
 .navbar-default .navbar-toggle {
-    border-color: #407aaa;
+    border-color: #428bca;
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-    background-color: #407aaa;
+    background-color: #428bca;
 }
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #ffffff;
