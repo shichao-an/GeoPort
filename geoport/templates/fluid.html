@@ -1,19 +1,18 @@
 {% extends "body.html" %}
-{% load static %}
 {% block main %}
   {% include "navbar.html" %}
-
-  <div class="container">
+  <div class="container" style="background-color:#ffffff">
     <div class="row">
       <div class="col-md-3">
         {% block sidebar %}
         {% endblock %}
       </div>
       <div class="col-md-9">
-        {% block content %}
-        {% endblock %}
+        <div class="content">
+          {% block content %}
+          {% endblock %}
+        </div>
       </div>
     </div>
   </div>
-
 {% endblock %}

@@ -24,3 +24,8 @@ def match_social_friends(user, social):
                     friending(user, matched_friend)
             except User.DoesNotExist:
                 continue
+
+
+@shared_task
+def save_avatar(user, social):
+    pass
