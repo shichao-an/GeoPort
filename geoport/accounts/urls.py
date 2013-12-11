@@ -9,4 +9,6 @@ urlpatterns = patterns('',
     url(r'^profile/$', 'accounts.views.profile', name="profile"),
     url(r'^settings/$', 'accounts.views.settings', name="settings"),
     url(r'^avatar/$', 'accounts.views.avatar', name="avatar"),
+    url(r'^email/$', 'accounts.views.email', name="email"),
+    url(r'^password/$', 'accounts.views.password', name="password"),
 )

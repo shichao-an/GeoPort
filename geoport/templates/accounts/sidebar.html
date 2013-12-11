@@ -3,8 +3,8 @@
     <h4 class="panel-title">Account and Profile</h4>
   </div>
   <ul class="nav nav-pills nav-stacked">
-    <li><a href="#">Settings</a></li>
-    <li><a href="#">Email</a></li>
-    <li><a href="#">Password</a></li>
+    <li><a href="{% url 'accounts:settings' %}">Settings</a></li>
+    <li><a href="{% url 'accounts:email' %}">Email</a></li>
+    <li><a href="{% url 'accounts:password' %}">Password</a></li>
   </ul>
 </div>

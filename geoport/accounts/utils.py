@@ -3,6 +3,7 @@ import os
 import uuid
 import random
 from django.core.files.storage import default_storage
+from social.apps.django_app.me.models import UserSocialAuth
 
 
 def friending(user, friend):
@@ -48,3 +49,12 @@ def handle_uploaded_file(f, category):
 
 def delete_file(path):
     default_storage.delete(path)
+
+
+def get_social_auth(user):
+    """Get social auth object if any"""
+    try:
+        social_auth = UserSocialAuth.objects.get(user=user)
+    except UserSocialAuth.DoesNotExist:
+        social_auth = None
+    return social_auth

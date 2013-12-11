@@ -2,18 +2,29 @@
 {% block title %}Profile{% endblock %}
 {% block content %}
 
-<h3 style="color:#428bca">{{ request.user.first_name }} {{ request.user.last_name }} <small>{{ request.user.username }}</small></h3>
-<a href="{% url 'accounts:avatar' %}" class="thumbnail pull-right">
-  {% if request.user.avatar %}
-    <img src="{{ MEDIA_URL }}{{ request.user.avatar }}" width="100px">
-  {% else %}
-    <img data-src="holder.js/100x100">
-  {% endif %}
-</a>
-
-<dl class="dl-horizontal">
-  <dt>Name</dt>
-  <dd>{{ request.user.first_name }} {{ request.user.last_name }}</dd>
-</dl>
+<h3 style="color:#428bca">{{ request.user.first_name }} {{ request.user.last_name }}</h3>
+<div class="col-md-4 pull-right">
+  <a href="{% url 'accounts:avatar' %}" class="thumbnail pull-right">
+    {% if request.user.avatar %}
+      <img src="{{ MEDIA_URL }}{{ request.user.avatar }}" width="100px">
+    {% else %}
+      <img data-src="holder.js/100x100">
+    {% endif %}
+  </a>
+</div>
+<div class="col-md-8">
+  <dl class="dl-horizontal">
+    <dt>Username</dt>
+    <dd>{{ request.user.username }}</dd>
+    <dt>Email</dt>
+    <dd>{{ request.user.email }}</dd>
+    <dt>Date joined</dt>
+    <dd>{{ request.user.date_joined }}</dd>
+    {% if social_auth %}
+      <dt>Social account</dt>
+      <dd>{{ social_auth.provider|capfirst }}</dd>
+    {% endif %}
+  </dl>
+</div>
 
 {% endblock %}

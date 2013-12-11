@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from .forms import UserCreationForm, FileUploadForm
-from .utils import handle_uploaded_file, delete_file
+from .forms import UserCreationForm, FileUploadForm, UserSettingsForm
+from .utils import handle_uploaded_file, delete_file, get_social_auth
 
 
 @login_required
@@ -46,14 +46,38 @@ def signup(request):
 @login_required
 def profile(request):
     """Global portal: /accounts/profile/"""
-    print dir(request.user._fields)
-    return render(request, "accounts/profile.html")
+    social_auth = get_social_auth(request.user)
+    context = {
+        'social_auth': social_auth,
+    }
+    return render(request, "accounts/profile.html", context)
 
 
 @login_required
 def settings(request):
     """Global portal: /accounts/settings/"""
-    return render(request, "accounts/profile.html")
+    context = {}
+    if request.method == 'POST':
+        form = UserSettingsForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('accounts:settings'))
+    else:
+        form = UserSettingsForm()
+    context['form'] = form
+    return render(request, "accounts/settings.html")
+
+
+@login_required
+def password(request):
+    """Global portal: /accounts/password/"""
+    return render(request, "accounts/settings.html")
+
+
+@login_required
+def email(request):
+    """Global portal: /accounts/email/"""
+    return render(request, "accounts/settings.html")
 
 
 @login_required
