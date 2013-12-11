@@ -24,7 +24,7 @@ class GeoPortUser(_User):
     sid = StringField()  # unique=True is not necessary
     friends = ListField(ReferenceField('self'))
     social_friends = ListField(StringField())
-
+    avatar = StringField()
     meta = {
         'indexes': ['sid']
     }

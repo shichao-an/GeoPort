@@ -2,6 +2,7 @@
 import os
 import uuid
 import random
+from django.core.files.storage import default_storage
 
 
 def friending(user, friend):
@@ -36,3 +37,14 @@ def get_hashed_directories():
     directory = hex(random.randint(1, 15)).lstrip('0x')
     subdirectory = hex(random.randint(1, 31)).lstrip('0x')
     return directory, subdirectory
+
+
+def handle_uploaded_file(f, category):
+    """Universal function for handling uploaded file using `default_storage'"""
+    path = generate_file_path(f.name, category)
+    default_storage.save(path, f)
+    return path
+
+
+def delete_file(path):
+    default_storage.delete(path)

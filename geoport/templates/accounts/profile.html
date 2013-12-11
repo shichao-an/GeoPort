@@ -3,8 +3,12 @@
 {% block content %}
 
 <h3 style="color:#428bca">{{ request.user.first_name }} {{ request.user.last_name }} <small>{{ request.user.username }}</small></h3>
-<a href="#" class="thumbnail pull-right">
-  <img data-src="holder.js/100x100">
+<a href="{% url 'accounts:avatar' %}" class="thumbnail pull-right">
+  {% if request.user.avatar %}
+    <img src="{{ MEDIA_URL }}{{ request.user.avatar }}" width="100px">
+  {% else %}
+    <img data-src="holder.js/100x100">
+  {% endif %}
 </a>
 
 <dl class="dl-horizontal">

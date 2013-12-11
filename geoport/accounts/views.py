@@ -3,7 +3,8 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from accounts.forms import UserCreationForm
+from .forms import UserCreationForm, FileUploadForm
+from .utils import handle_uploaded_file, delete_file
 
 
 @login_required
@@ -53,3 +54,24 @@ def profile(request):
 def settings(request):
     """Global portal: /accounts/settings/"""
     return render(request, "accounts/profile.html")
+
+
+@login_required
+def avatar(request):
+    """Global portal: /accounts/avatar/"""
+    context = {}
+    if request.method == 'POST':
+        form = FileUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            path = handle_uploaded_file(request.FILES['file'], 'avatar')
+            old_path = request.user.avatar
+            if old_path:
+                delete_file(old_path)
+            request.user.avatar = path
+            request.user.save()
+            return HttpResponseRedirect('/accounts/profile/')
+    else:
+        form = FileUploadForm()
+
+    context['form'] = form
+    return render(request, "accounts/avatar.html", context)

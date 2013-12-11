@@ -7,5 +7,6 @@ urlpatterns = patterns('',
     url(r'^signup/$', 'accounts.views.signup', name="signup"),
     url(r'^logout/$', 'django.contrib.auth.views.logout_then_login', name="logout"),
     url(r'^profile/$', 'accounts.views.profile', name="profile"),
-
+    url(r'^settings/$', 'accounts.views.settings', name="settings"),
+    url(r'^avatar/$', 'accounts.views.avatar', name="avatar"),
 )

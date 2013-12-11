@@ -77,3 +77,7 @@ class UserCreationForm(DocumentForm):
         if commit:
             user.save()
         return user
+
+
+class FileUploadForm(forms.Form):
+    file = forms.FileField(help_text="Select file to upload.")
