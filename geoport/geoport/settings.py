@@ -215,14 +215,18 @@ BOWER_INSTALLED_APPS = (
     'bootstrap-hover-dropdown',
 )
 
+# django-storages settings are in settings_production.py
+# File categories that determine file directories
+FILE_CATEGORIES = (
+    'avatars',
+    'uploads',
+)
+
 # Credentials
 try:
     from .credentials import *
 except:
     from .credentials_production import *
-
-# Credentials dependent settings
-# django-storages settings are in settings_production.py
 
 # Credential-dependent settings starts
 # Celery
