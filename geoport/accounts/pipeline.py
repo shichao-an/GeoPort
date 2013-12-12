@@ -33,4 +33,4 @@ def retrieve_picture(strategy, details, response, user=None, *args, **kwargs):
         if user:
             path = response['id'] + '/' + 'picture'
             url = urlparse.urljoin(FACEBOOK_GRAPH_URL, path)
-            save_social_avatar(url, user, 'facebook')
+            save_social_avatar.delay(url, user, 'facebook')
