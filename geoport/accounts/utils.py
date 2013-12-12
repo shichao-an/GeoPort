@@ -3,6 +3,7 @@ import os
 import uuid
 import random
 from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 from social.apps.django_app.me.models import UserSocialAuth
 
 
@@ -40,10 +41,16 @@ def get_hashed_directories():
     return directory, subdirectory
 
 
-def handle_uploaded_file(f, category):
+def handle_uploaded_file(f, category, filename=None):
     """Universal function for handling uploaded file using `default_storage'"""
-    path = generate_file_path(f.name, category)
-    default_storage.save(path, f)
+    path = None
+    if hasattr(f, 'name'):
+        path = generate_file_path(f.name, category)
+        default_storage.save(path, f)
+    elif not hasattr(f, 'name') and filename:
+        path = generate_file_path(filename, category)
+        default_storage.save(path, ContentFile(f))
+    assert path is not None
     return path
 
 
