@@ -23,14 +23,12 @@ then
         echo "$command"
         $command &
     done
-    geoport/manage.py supervisor &
+    geoport/manage.py supervisor
     exit 0
 fi
 
 if [ "$1" = "stop" ]
 then
-    geoport/manage.py supervisor shutdown
-    echo "supervisord is shut down."
     for command in "${commands[@]}"
     do
         cmd=$(echo "$command" | cut -d " " -f 1)
