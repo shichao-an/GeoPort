@@ -3,6 +3,12 @@ from mongoengine import (Document, StringField, ListField, IntField,
                          ReferenceField)
 
 
+# GeoPortUser.gender options
+GENDER_MALE = 1
+GENDER_FEMALE = 2
+GENDER_OTHERS = 3
+
+
 class GeoPortUser(_User):
     """Custom user class for this project.
 
@@ -25,6 +31,7 @@ class GeoPortUser(_User):
     friends = ListField(ReferenceField('self'))
     social_friends = ListField(StringField())
     avatar = StringField()
+    gender = IntField()
     meta = {
         'indexes': ['sid']
     }
