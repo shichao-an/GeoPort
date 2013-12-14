@@ -63,7 +63,7 @@ def settings(request):
             form.save()
             return HttpResponseRedirect(reverse('accounts:settings'))
     else:
-        form = UserSettingsForm()
+        form = UserSettingsForm(instance=request.user)
     context['form'] = form
     return render(request, "accounts/settings.html")
 
