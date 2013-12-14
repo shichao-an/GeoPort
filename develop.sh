@@ -21,6 +21,7 @@ then
 fi
 
 echo "Installing dependency packages..."
+easy_install -U setuptools
 pip install -r requirements.txt
 
 if [ "$?" -ne "0" ]
