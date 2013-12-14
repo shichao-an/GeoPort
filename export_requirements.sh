@@ -30,8 +30,8 @@ pip freeze > $req
 
 for exception in "${exceptions[@]}"
 do
-    echo "Removing lines containing $exception from $req..."
-    $sed -i "/$exception/d" $req
+    echo "Removing $exception from $req..."
+    $sed -i "/^$exception==/d" $req
 done
 echo "Export complete."
 trap "rm $tmp" EXIT SIGINT SIGQUIT
