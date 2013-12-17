@@ -1,6 +1,6 @@
 from mongoengine.django.auth import User as _User
 from mongoengine import (Document, StringField, ListField, IntField,
-                         ReferenceField)
+                         ReferenceField, GenericReferenceField)
 
 
 # GeoPortUser.gender options
@@ -39,3 +39,14 @@ class GeoPortUser(_User):
 # Alias of `GeoPortUser`
 # This makes sure get_user_document() equals `accounts.models.User`
 User = GeoPortUser
+
+
+class Request(Document):
+    """Request associated with users as `action_object'
+
+    """
+    verb = StringField()  # `group', `event', `friend', `location'
+    actor = ReferenceField(User)
+    action_object = ReferenceField(User)
+    target = GenericReferenceField()
+    status = StringField()  # `pending', `approved', `declined'
