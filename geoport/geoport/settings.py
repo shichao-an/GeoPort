@@ -213,6 +213,7 @@ BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_PATH, 'components')
 
 BOWER_INSTALLED_APPS = (
     'bootstrap-hover-dropdown',
+    ''
 )
 
 # django-storages settings are in settings_production.py

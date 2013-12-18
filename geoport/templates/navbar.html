@@ -17,7 +17,7 @@
       <ul class="nav navbar-nav navbar-right">
         <form class="navbar-form site-search" role="form" method="get" action="{% url 'search:index' %}">
           <div class="form-group">
-            <input name="query" type="text" class="form-control" placeholder="Search This Blog" value="{{ request.GET.query }}">
+            <input name="query" type="text" size="32" class="form-control" placeholder="Search group, events and friends" value="{{ request.GET.query }}">
           </div>
         </form>
       </ul>

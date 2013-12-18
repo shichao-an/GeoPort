@@ -16,7 +16,7 @@ class Participant(EmbeddedDocument):
 
 class Event(Document):
     title = StringField(required=True, max_length=200)
-    slug = AutoSlugField(required=True, max_length=200)
+    slug = AutoSlugField(required=True)
     description = StringField()
     group = ReferenceField(Group, reverse_delete_rule=CASCADE)
     participants = ListField(EmbeddedDocumentField(Participant))
@@ -24,8 +24,9 @@ class Event(Document):
     address = StringField()
     zip_code = IntField()
     location = GeoPointField()
-    start_time = DateTimeField()
-    end_time = DateTimeField()
+    date_created = DateTimeField(required=True)
+    start_time = DateTimeField(required=True)
+    end_time = DateTimeField(required=True)
     size = IntField(min_value=1)  # Size cannot be changed after start
     meta = {
         'indexes': ['title', 'slug']
@@ -35,10 +36,12 @@ class Event(Document):
 
     def __init__(self, *args, **kwargs):
         super(Event, self).__init__(*args, **kwargs)
+
         # Get a copy of original size
         self.__original_size = self.size
 
     def save(self, *args, **kwargs):
+        self.slug = self.title
         # Size has been changed
         if self.__original_size != self.size:
             # Event has not started yet

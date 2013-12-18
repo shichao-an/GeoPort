@@ -124,3 +124,22 @@ button.remove-button {
 .navbar-form {
     border-color: transparent !important;
 }
+
+/* Bootstrap elements font color customization */
+
+.control-label {
+    color: #777;
+}
+
+a.list-group-item {
+    color: #777;
+}
+
+.bootstrap-tagsinput {
+    width: 100%;
+}
+
+/* Missing classes in Bootstrap 3 */
+.help-inline {
+    color: #595959;
+}

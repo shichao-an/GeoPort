@@ -1,9 +1,12 @@
+from django.core.urlresolvers import reverse
 from mongoengine import Document, EmbeddedDocument
 from mongoengine import (StringField, ListField, BooleanField, ReferenceField,
                          EmbeddedDocumentField, DateTimeField)
 from mongoengine import CASCADE, PULL
+from mongoengine import signals
 from mongoengine_extras.fields import AutoSlugField
 from accounts.models import User
+from .signals import auto_now_add
 
 
 # Member.member_type options
@@ -37,7 +40,9 @@ class Group(Document):
     name = StringField(required=True, max_length=100)
     slug = AutoSlugField(required=True)
     description = StringField()
-    is_public = BooleanField(default=True)
+    is_public = BooleanField(default=True, help_text='Is Public')
+    logo = StringField()
+    photos = ListField(StringField())
     members = ListField(EmbeddedDocumentField(Member))
     date_created = DateTimeField(required=True)
     tags = ListField(StringField())
@@ -48,6 +53,9 @@ class Group(Document):
     def save(self, *args, **kwargs):
         self.slug = self.name
         super(Group, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('groups:group', kwargs={'slug': self.slug})
 
 
 class PersonalGroup(Document):
@@ -61,3 +69,7 @@ class PersonalGroup(Document):
     @property
     def slug(self):
         return self.user.username
+
+
+# Attaching events
+signals.pre_init.connect(auto_now_add, Group)
