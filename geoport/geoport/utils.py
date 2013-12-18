@@ -1,3 +1,4 @@
+# Project-wide utility functions
 from bson import json_util
 from django.utils.encoding import smart_unicode
 from slugify import slugify as pyslugify
@@ -48,3 +49,10 @@ def uuslug(s, instance, entities=True, decimal=True, hexadecimal=True,
         counter += 1
 
     return new_slug
+
+
+def get_post_data(request, *fields):
+    data = {}
+    for field in fields:
+        data[field] = request.POST.get(field)
+    return data

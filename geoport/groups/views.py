@@ -7,7 +7,7 @@ from django.shortcuts import render
 from accounts.utils import handle_uploaded_file, delete_file
 from .models import Group
 from .forms import GroupForm
-from .utils import get_post_data
+from geoport.utils import get_post_data
 
 
 @login_required
