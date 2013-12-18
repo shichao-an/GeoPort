@@ -89,6 +89,18 @@ class Group(Document):
             member = Member(user=user, member_type=GROUP_CREATOR)
             self.members.append(member)
 
+    @property
+    def admins(self):
+        return [
+            member.user for member in self.members if member.is_admin
+        ]
+
+    @property
+    def regular_members(self):
+        return [
+            member.user for member in self.members if not member.is_staff
+        ]
+
     def __unicode__(self):
         return self.name
 
