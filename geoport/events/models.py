@@ -16,7 +16,7 @@ class Participant(EmbeddedDocument):
 
 class Event(Document):
     title = StringField(required=True, max_length=200)
-    slug = AutoSlugField(required=True)
+    slug = AutoSlugField(required=True, unique_with='group')
     description = StringField()
     group = ReferenceField(Group, reverse_delete_rule=CASCADE)
     participants = ListField(EmbeddedDocumentField(Participant))
@@ -26,7 +26,7 @@ class Event(Document):
     location = GeoPointField()
     date_created = DateTimeField(required=True)
     start_time = DateTimeField(required=True)
-    end_time = DateTimeField(required=True)
+    end_time = DateTimeField()
     size = IntField(min_value=1)  # Size cannot be changed after start
     meta = {
         'indexes': ['title', 'slug']

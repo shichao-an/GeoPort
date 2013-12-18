@@ -1,0 +1,55 @@
+{% load tz %}
+{% load group_tags %}
+{% url 'groups:create' as groups_create_url %}
+{% url 'groups:events' as groups_events_url %}
+{% url 'groups:index' as groups_url %}
+<div class="sidebar-block">
+  <div class="list-group">
+    {% include "groups/group_logo.html" %}
+    <li class="list-group-item list-group-info">
+      <div class="list-group-item-text">
+        <div class="row">
+          <div class="col-md-12">
+            <b>Established</b>
+            <span class="pull-right">{{ group.date_created|timezone:"America/New_York"|date:"F j, Y" }}</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <b>Members</b>
+            <span class="pull-right">{{ group.members|length }}</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <b>Past Events</b>
+            <span class="pull-right">{{ group.past_events|length }}</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <b>Tags</b>
+            <span class="pull-right">{{ group.tags|join_group_tags:","|safe }}</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <b>Creator</b>
+            <div style="margin:0.5em 0"><a href="{{ group.creator.get_absolute_url }}">{{ group.creator.name }}</a></div>
+          </div>
+          <div class="col-md-6">
+            <span class="pull-right">
+              <a href="#" class="thumbnail">
+                <img src="{{ MEDIA_URL }}{{ group.creator.avatar }}" width="60px">
+              </a>
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </li>
+    <a class="list-group-item {% if request.path == groups_url and request.GET.filter == 'yours' %}active{% endif %}" href="{% url 'groups:index' %}?filter=yours">Your Groups</a>
+    <a class="list-group-item {% if request.path == groups_create_url %}active{% endif %}" href="{% url 'groups:create' %}">Create</a>
+    <a class="list-group-item {% if request.path == groups_events_url %}active{% endif %}" href="{% url 'groups:events' %}">Events</a>
+  </div>
+</div>

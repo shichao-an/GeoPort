@@ -99,3 +99,8 @@ def avatar(request):
 
     context['form'] = form
     return render(request, "accounts/avatar.html", context)
+
+
+def user(request, username):
+    """User page"""
+    pass

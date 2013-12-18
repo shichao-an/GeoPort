@@ -8,9 +8,10 @@ class GroupForm(DocumentForm):
 
     class Meta:
         model = Group
-        fields = ('name', 'description', 'logo', 'is_public')
+        fields = ('name', 'description', 'is_public')
 
     tags = forms.CharField(required=False)
+    logo = forms.FileField(required=False)
 
     def clean_tags(self):
         data = self.cleaned_data['tags']

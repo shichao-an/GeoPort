@@ -121,8 +121,12 @@ INSTALLED_APPS = (
     'storages',
     'djangobower',
     'djsupervisor',
-    'accounts',  # For autodiscover_tasks of Celery
     'missing',
+
+    # Project apps
+    'accounts',  # For autodiscover_tasks of Celery
+    'groups',
+
 )
 
 # Use json_util to encode and decode BSON objects
@@ -213,7 +217,7 @@ BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_PATH, 'components')
 
 BOWER_INSTALLED_APPS = (
     'bootstrap-hover-dropdown',
-    ''
+    'bootstrap-tagsinput',
 )
 
 # django-storages settings are in settings_production.py

@@ -1,4 +1,11 @@
 {% extends "fluid.html" %}
+{% load string_tags %}
 {% block sidebar %}
+{% url 'groups:group_index' as groups_group_index_url %}
+{% if request.path|startswith:groups_group_index_url %}
+  {% include "groups/group_sidebar.html" %}
+{% else %}
   {% include "groups/sidebar.html" %}
+{% endif %}
+
 {% endblock %}

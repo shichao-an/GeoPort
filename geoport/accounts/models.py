@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from mongoengine.django.auth import User as _User
 from mongoengine import (Document, StringField, ListField, IntField,
                          ReferenceField, GenericReferenceField)
@@ -35,6 +36,13 @@ class GeoPortUser(_User):
     meta = {
         'indexes': ['sid']
     }
+
+    def get_absolute_url(self):
+        return reverse('user', kwargs={'username': self.username})
+
+    @property
+    def name(self):
+        return '%s %s' % (self.first_name, self.last_name)
 
 # Alias of `GeoPortUser`
 # This makes sure get_user_document() equals `accounts.models.User`

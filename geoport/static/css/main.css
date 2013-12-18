@@ -135,6 +135,10 @@ a.list-group-item {
     color: #777;
 }
 
+.list-group-item-text {
+    color:#777;
+}
+
 .bootstrap-tagsinput {
     width: 100%;
 }
@@ -143,3 +147,16 @@ a.list-group-item {
 .help-inline {
     color: #595959;
 }
+
+.sidebar-block {
+    margin: 1em 0 0 0;
+}
+
+.list-group-logo {
+    padding: 10px 10px;
+}
+
+.list-group-info {
+    
+}
+

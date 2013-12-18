@@ -1,7 +1,7 @@
 {% url 'groups:create' as groups_create_url %}
 {% url 'groups:events' as groups_events_url %}
 {% url 'groups:index' as groups_url %}
-<div style="margin: 1em 0">
+<div class="sidebar-block">
   <div class="list-group">
     <li class="list-group-item list-group-header"><h3 class="list-group-header" style="color:#fff">Groups</h3></li>
     <a class="list-group-item {% if request.path == groups_url and request.GET.filter == 'yours' %}active{% endif %}" href="{% url 'groups:index' %}?filter=yours">Your Groups</a>

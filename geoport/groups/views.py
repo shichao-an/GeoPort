@@ -4,6 +4,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.http import Http404
 from django.shortcuts import render
+from accounts.utils import handle_uploaded_file, delete_file
 from .models import Group
 from .forms import GroupForm
 from .utils import get_post_data
@@ -19,12 +20,14 @@ def index(request):
 def create(request):
     context = {}
     if request.method == 'POST':
-        form = GroupForm(request.POST)
+        form = GroupForm(request.POST, request.FILES)
         if form.is_valid():
             group = form.save(commit=False)
             group.creator = request.user
-            print form.cleaned_data
             group.tags = form.cleaned_data['tags']
+            if form.cleaned_data['logo']:
+                path = handle_uploaded_file(request.FILES['logo'], 'uploads')
+                group.logo = path
             group.save()
             return HttpResponseRedirect(group.get_absolute_url())
         else:
@@ -50,6 +53,11 @@ def personal(request):
 
 
 @login_required
+def group_index(request):
+    return HttpResponseRedirect(reverse('groups:index'))
+
+
+@login_required
 def group(request, slug):
     """Public/Private Group"""
     context = {}
@@ -59,3 +67,13 @@ def group(request, slug):
         raise Http404
     context['group'] = group
     return render(request, 'groups/group.html', context)
+
+
+@login_required
+def settings(request, slug):
+    pass
+
+
+@login_required
+def tag(request, slug):
+    pass
