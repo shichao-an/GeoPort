@@ -35,7 +35,7 @@ class Member(EmbeddedDocument):
 
 class Group(Document):
     name = StringField(required=True, max_length=100)
-    slug = AutoSlugField(required=True, max_length=100)
+    slug = AutoSlugField(required=True)
     description = StringField()
     is_public = BooleanField(default=True)
     members = ListField(EmbeddedDocumentField(Member))
@@ -44,6 +44,10 @@ class Group(Document):
     meta = {
         'indexes': ['name', 'slug']
     }
+
+    def save(self, *args, **kwargs):
+        self.slug = self.name
+        super(Group, self).save(*args, **kwargs)
 
 
 class PersonalGroup(Document):

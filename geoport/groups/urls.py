@@ -7,4 +7,5 @@ urlpatterns = patterns('',
     url(r'^create/$', 'groups.views.create', name="create"),
     url(r'^events/$', 'groups.views.events', name="events"),
     url(r'^personal/$', 'groups.views.personal', name="personal"),
+    url(r'^group/$', 'groups.views.group', name="group"),
 )

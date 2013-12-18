@@ -14,13 +14,13 @@ def create(request):
     if request.method == 'POST':
         form = GroupForm(request.POST)
         if form.is_valid():
-            blog = form.save(commit=False)
-            blog.creator = request.user
-            blog.save()
-            blog.authors.add(request.user)
+            group = form.save(commit=False)
+            group.creator = request.user
+            group.save()
+            group.authors.add(request.user)
             form.save_m2m()
             return HttpResponseRedirect(
-                reverse('blog', kwargs={'slug': blog.slug}))
+                reverse('group', kwargs={'slug': group.slug}))
         else:
             # Retain POST data if invalid
             data = {
@@ -31,7 +31,7 @@ def create(request):
     else:
         form = GroupForm()
     context['form'] = form
-    return render(request, "blogs/create.html", context)
+    return render(request, "groups/create.html", context)
 
 
 def events(request):
@@ -39,4 +39,10 @@ def events(request):
 
 
 def personal(request):
+    """Personal Group"""
+    pass
+
+
+def group(request):
+    """Public/Private Group"""
     pass
