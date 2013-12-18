@@ -43,7 +43,6 @@ User = GeoPortUser
 
 class Request(Document):
     """Request associated with users as `action_object'
-
     """
     verb = StringField()  # `group', `event', `friend', `location'
     actor = ReferenceField(User)
