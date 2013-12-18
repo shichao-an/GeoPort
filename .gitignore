@@ -16,3 +16,6 @@ geoport/media
 # BOWER packages
 geoport/components/bower_components/bootstrap/
 geoport/components/bower_components/jquery/
+geoport/components/bower_components/bootstrap-tagsinput/lib/
+geoport/components/bower_components/bootstrap-tagsinput/examples/
+geoport/components/bower_components/bootstrap-tagsinput/src/
