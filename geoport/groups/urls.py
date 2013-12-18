@@ -10,6 +10,6 @@ urlpatterns = patterns('',
     url(r'^tag/(?P<slug>[\w.@+-]+)/$', 'groups.views.tag', name='tag'),
     url(r'^group/$', 'groups.views.group_index', name='group_index'),
     url(r'^group/(?P<slug>[\w.@+-]+)/$', 'groups.views.group', name='group'),
-    url(r'^group/(?P<slug>[\w.@+-]+)/settings$', 'groups.views.settings',
-        name='settings'),
+    url(r'^group/(?P<slug>[\w.@+-]+)/settings$', 'groups.views.group_settings',
+        name='group_settings'),
 )

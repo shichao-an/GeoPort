@@ -1,0 +1,13 @@
+{% load group_tags %}
+{% if group.tags %}
+<div class="row">
+  <div class="col-md-12">
+    <b>Tags</b>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    {{ group.tags|join_group_tags:", "|safe }}
+  </div>
+</div>
+{% endif %}

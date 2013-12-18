@@ -70,10 +70,22 @@ def group(request, slug):
 
 
 @login_required
-def settings(request, slug):
+def settings(request):
+    """Settings/Management for `Your Groups' (reserved)"""
     pass
 
 
 @login_required
 def tag(request, slug):
     pass
+
+
+@login_required
+def group_settings(request, slug):
+    context = {}
+    try:
+        group = Group.objects.get(slug=slug)
+    except:
+        raise Http404
+    context['group'] = group
+    return render(request, 'groups/group_settings.html', context)

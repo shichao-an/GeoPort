@@ -1,5 +1,7 @@
+{% if group.logo %}
 <li class="list-group-item list-group-logo">
   <a href="#" class="thumbnail" style="margin:0px">
-    <img src="{{ MEDIA_URL }}{{ group.logo }}" width="200px">
+    <img src="{{ MEDIA_URL }}{{ group.logo }}" style="max-width:200px">
   </a>
 </li>
+{% endif %}

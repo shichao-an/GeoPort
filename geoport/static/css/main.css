@@ -101,8 +101,8 @@ h6,
 
 h3.list-group-header {
     margin: 0;
-
 }
+
 li.list-group-header {
     background: #ccc;
 }
@@ -154,9 +154,34 @@ a.list-group-item {
 
 .list-group-logo {
     padding: 10px 10px;
+    text-align: center;
 }
 
 .list-group-info {
     
 }
 
+li.event-tab-header a {
+    font-size: 18px;
+    font-weight: 500;
+    color: #ccc;
+}
+
+li.event-tab-header.active a{
+    color: #777;
+}
+
+h3.user-list-group-header {
+    font-size: 18px;
+    font-weight: 500;
+    color: #777;
+    margin: 0;
+}
+
+.user-list-group {
+    border:1px solid #ddd;
+}
+
+.member-avatar.thumbnail {
+    margin: 0;
+}

@@ -14,7 +14,7 @@ def join_group_tags(value, arg):
     return arg.join(arr)
 
 
-@register.filter('join_group_tags')
+@register.filter('join_users')
 def join_users(value, arg):
     from django.utils.html import conditional_escape
     arr = []

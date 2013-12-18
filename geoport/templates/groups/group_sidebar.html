@@ -1,5 +1,4 @@
 {% load tz %}
-{% load group_tags %}
 {% url 'groups:create' as groups_create_url %}
 {% url 'groups:events' as groups_events_url %}
 {% url 'groups:index' as groups_url %}
@@ -29,7 +28,7 @@
         <div class="row">
           <div class="col-md-6">
             <b>Creator</b>
-            <div style="margin:0.5em 0"><a href="{{ group.creator.get_absolute_url }}">{{ group.creator.name }}</a></div>
+            <div style="margin:1.5em 0"><a href="{{ group.creator.get_absolute_url }}">{{ group.creator.name }}</a></div>
           </div>
           <div class="col-md-6">
             <span class="pull-right" style="margin:1em 0 0 0">
@@ -39,16 +38,7 @@
             </span>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <b>Tags</b>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            {{ group.tags|join_group_tags:","|safe }}
-          </div>
-        </div>
+        {% include "groups/group_tags.html" %}
       </div>
     </li>
     <a class="list-group-item {% if request.path == groups_url and request.GET.filter == 'yours' %}active{% endif %}" href="{% url 'groups:index' %}?filter=yours">Settings (admin can see)</a>
