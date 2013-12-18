@@ -18,7 +18,7 @@ class Event(Document):
     title = StringField(required=True, max_length=200)
     slug = AutoSlugField(required=True, max_length=200)
     description = StringField()
-    group = ReferenceField(Group)
+    group = ReferenceField(Group, reverse_delete_rule=CASCADE)
     participants = ListField(EmbeddedDocumentField(Participant))
     waiting_list = ListField(EmbeddedDocumentField(Participant))
     address = StringField()

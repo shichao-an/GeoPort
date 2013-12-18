@@ -121,8 +121,8 @@ INSTALLED_APPS = (
     'storages',
     'djangobower',
     'djsupervisor',
-    # For autodiscover_tasks of Celery
-    'accounts',
+    'accounts',  # For autodiscover_tasks of Celery
+    'missing',
 )
 
 # Use json_util to encode and decode BSON objects

@@ -7,5 +7,7 @@ urlpatterns = patterns('',
     url(r'^$', 'portal.views.index', name='portal'),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^groups/', include('groups.urls', namespace='groups')),
+    url(r'^search/', include('search.urls', namespace='search')),
+    url(r'^friends/', include('friends.urls', namespace='friends')),
     url('', include('social.apps.django_app.urls', namespace='social')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

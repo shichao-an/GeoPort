@@ -2,7 +2,7 @@ from django import forms
 #from django.contrib.auth.forms import UserCreationForm as _UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 from mongodbforms import DocumentForm
-from accounts.models import User
+from .models import User
 
 
 class UserCreationForm(DocumentForm):
@@ -80,25 +80,11 @@ class UserCreationForm(DocumentForm):
 
 
 class FileUploadForm(forms.Form):
+    """Single file upload form"""
     file = forms.FileField(help_text="Select file to upload.")
 
 
 class UserSettingsForm(DocumentForm):
-    first_name = forms.CharField(label=_("First name"), max_length=255)
-    last_name = forms.CharField(label=_("Last name"), max_length=255)
-
     class Meta:
         model = User
         fields = ("first_name", "last_name")
-
-    def clean_first_name(self):
-        first_name = self.cleaned_data["first_name"]
-        if first_name:
-            return first_name.strip()
-        return first_name
-
-    def clean_last_name(self):
-        last_name = self.cleaned_data["last_name"]
-        if last_name:
-            return last_name.strip()
-        return last_name

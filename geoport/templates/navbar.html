@@ -1,4 +1,4 @@
-<!-- Static navbar -->
+{% load string_tags %}
 <div class="navbar navbar-default navbar-static-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -8,31 +8,20 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">{% include "global/project_name.html" %}</a>
+      <a class="navbar-brand site-brand" href="/">{% include "global/project_name.html" %}</a>
     </div>
     <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="{% url 'groups:index' %}">Groups</a></li>
-        <li><a href="#about">Friends</a></li>
-        <li><a href="#contact">Quick Events</a></li>
-        {% comment %}
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li class="dropdown-header">Nav header</li>
-            <li><a href="#">Separated link</a></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
-        {% endcomment %}
-      </ul>
       <ul class="nav navbar-nav navbar-right">
         {% include "navbar/user.html" %}
       </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <form class="navbar-form site-search" role="form" method="get" action="{% url 'search:index' %}">
+          <div class="form-group">
+            <input name="query" type="text" class="form-control" placeholder="Search This Blog" value="{{ request.GET.query }}">
+          </div>
+        </form>
+      </ul>
+
     </div><!--/.nav-collapse -->
   </div>
 </div>

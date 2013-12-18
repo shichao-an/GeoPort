@@ -1,5 +1,5 @@
 body{
-	font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	background-color: #f2f2f2;
 }
 
@@ -15,7 +15,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* Custom navbar */
@@ -109,4 +109,18 @@ li.list-group-header {
 
 button.remove-button {
     margin: 0 4px 2px 0;
+}
+
+.site-brand {
+    font-size: 160%;
+    font-weight: 300;
+}
+
+.site-search {
+    margin-right: 1em;
+    margin-left: 1em;
+}
+
+.navbar-form {
+    border-color: transparent !important;
 }

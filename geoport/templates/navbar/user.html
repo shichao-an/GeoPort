@@ -1,5 +1,13 @@
-<li {% if request.path == accounts_profile %}class="active"{% endif %} class="dropdown">
+{% load string_tags %}
+{% url 'groups:index' as groups_url %}
+{% url 'groups:personal' as groups_personal_url %}
+{% url 'friends:index' as friends_url %}
+{% url 'accounts:index' as accounts_url %}
   {% if request.user.is_authenticated %}
+    <li {% if request.path == groups_url %}class="active"{% endif %}><a href="{{ groups_url }}">Groups</a></li>
+    <li {% if request.path == groups_following_url %}class="active"{% endif %}><a href="{{ friends_url }}">Friends</a></li>
+    <li {% if request.path == groups_personal_url %}class="active"{% endif %}><a href="{{ groups_personal_url }}">Quick Events</a></li>
+    <li {% if request.path|startswith:accounts_url %}class="active"{% endif %} class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
       {{ request.user.username }}
     <b class="caret"></b></a>
@@ -11,5 +19,4 @@
     <li><a href="{% url 'accounts:login' %}">Login</a></li>
     <li><a href="{% url 'accounts:signup' %}">Signup</a></li>
   {% endif %}
-
 </li>

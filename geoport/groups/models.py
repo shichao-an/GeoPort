@@ -37,7 +37,7 @@ class Group(Document):
     name = StringField(required=True, max_length=100)
     slug = AutoSlugField(required=True, max_length=100)
     description = StringField()
-    is_public = BooleanField()
+    is_public = BooleanField(default=True)
     members = ListField(EmbeddedDocumentField(Member))
     date_created = DateTimeField(required=True)
     tags = ListField(StringField())
@@ -47,7 +47,7 @@ class Group(Document):
 
 
 class PersonalGroup(Document):
-    user = ReferenceField(User, reverse_delete_rule=CASCADE)
+    user = ReferenceField(User)
     members = ListField(ReferenceField(User, reverse_delete_rule=PULL))
 
     @property

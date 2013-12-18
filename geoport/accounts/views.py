@@ -61,11 +61,11 @@ def settings(request):
         form = UserSettingsForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('accounts:settings'))
+            return HttpResponseRedirect(reverse('accounts:profile'))
     else:
         form = UserSettingsForm(instance=request.user)
     context['form'] = form
-    return render(request, "accounts/settings.html")
+    return render(request, "accounts/settings.html", context)
 
 
 @login_required
