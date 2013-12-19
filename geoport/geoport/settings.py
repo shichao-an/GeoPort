@@ -220,7 +220,7 @@ BOWER_INSTALLED_APPS = (
     'bootstrap-hover-dropdown',
     'bootstrap-tagsinput',
     'sprintf',
-    'typeahead.hs',
+    'typeahead.js',
     'hogan',
 )
 
