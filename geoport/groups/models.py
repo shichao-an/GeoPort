@@ -119,7 +119,7 @@ class Group(Document):
 
     def add_member(self, user, member_type=None):
         """Add a user as a member to the group
-        Adding an existing user with a different member_type will raise.
+        Adding an existing user with a different `member_type' will raise.
         In other cases, atomic updates will be used.
         """
         if member_type == GROUP_CREATOR:
@@ -150,7 +150,29 @@ class Group(Document):
             member = Member(user=user)
             self.update(pull__members=member)
         else:
-            raise Exception("The creator cannot be removed.")
+            raise Exception('The creator cannot be removed.')
+
+    def edit_member(self, user, member_type):
+        """Edit the `member_type' of an existing member to
+        """
+        if user in self.users:
+            if user == self.creator:
+                raise Exception('Creator cannot be edited.')
+            if member_type == GROUP_CREATOR:
+                raise Exception('Creator cannot be edited.')
+            if member_type is not None:
+                if member_type not in [GROUP_ADMIN]:
+                    raise Exception('Invalid member type.')
+
+            # Use QuerySet to perform atomic update
+            groups = Group.objects(id=self.id, members__user=user)
+            if member_type:
+                groups.update_one(set__members__S__member_type=member_type)
+            else:
+                # Set `member_type' to None
+                groups.update_one(unset__members__S__member_type=member_type)
+        else:
+            raise Exception('This user is not a member.')
 
     def __unicode__(self):
         return self.name

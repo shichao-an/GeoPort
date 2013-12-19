@@ -16,7 +16,6 @@ def admins(request, slug):
         "code": 1,
         "message": "This group does not exist.",
     }
-    #print slug
     try:
         group = Group.objects.get(slug=slug)
     except:
@@ -48,20 +47,30 @@ def admins(request, slug):
             return HttpResponse(
                 json.dumps(data), content_type="application/json")
 
-        if admin in group.admin:
+        if admin == group.creator:
             data["code"] = 4
+            data["message"] = "This user is already the creator of this group."
+            return HttpResponse(
+                json.dumps(data), content_type="application/json")
+
+        if admin in group.admins:
+            data["code"] = 5
             data["message"] = "This user is already an admin of this group."
             return HttpResponse(
                 json.dumps(data), content_type="application/json")
 
         # Successful action
-        group.admins.add(admin)
+        if admin in group.regular_members:
+            group.edit_member(admin, 'admin')
+        else:
+            group.add_member(admin, 'admin')
         data["success"] = True
         data["code"] = 0
         del data["message"]
         return HttpResponse(
             json.dumps(data), content_type="application/json")
 
+    # `remove_admin' simply makes this user a regular member
     elif query_type == "remove_admin":
         admin_username = request.POST.get("admin")
         try:
@@ -72,22 +81,80 @@ def admins(request, slug):
             return HttpResponse(
                 json.dumps(data), content_type="application/json")
 
-        if admin not in group.admins.all():
-            data["code"] = 5
+        if admin not in group.admins:
+            data["code"] = 6
             data["message"] = "This user is not an admin of this group."
             return HttpResponse(
                 json.dumps(data), content_type="application/json")
 
         if admin == group.creator:
-            data["code"] = 6
-            data["message"] = "You cannot remove creator admin."
+            data["code"] = 7
+            data["message"] = "You cannot remove creator."
             return HttpResponse(
                 json.dumps(data), content_type="application/json")
 
         # Successful action
-        group.admins.remove(admin)
+        group.edit_member(admin, None)
         data["success"] = True
         data["code"] = 0
         del data["message"]
         print data
         return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+@login_required
+@require_POST
+def join(request, slug):
+    """Join a group"""
+    data = {
+        "success": False,
+        "code": 1,
+        "message": "This group does not exist.",
+    }
+    try:
+        group = Group.objects.get(slug=slug)
+    except:
+        return HttpResponse(json.dumps(data), content_type="application/json")
+
+    if request.user in group.staff:
+        data["code"] = 2
+        data["message"] = "You cannot join your created/moderated group."
+        return HttpResponse(json.dumps(data), content_type="application/json")
+
+    group.add_member(request.user)
+    data["code"] = 0
+    data["success"] = True
+    del data["message"]
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+@login_required
+@require_POST
+def quit(request, slug):
+    """Quit a group"""
+    data = {
+        "success": False,
+        "code": 1,
+        "message": "This group does not exist.",
+    }
+
+    try:
+        group = Group.objects.get(slug=slug)
+    except:
+        return HttpResponse(json.dumps(data), content_type="application/json")
+
+    if request.user in group.staff:
+        data["code"] = 3
+        data["message"] = "You cannot quit your created/moderated group."
+        return HttpResponse(json.dumps(data), content_type="application/json")
+
+    if request.user not in group.regular_members:
+        data["code"] = 4
+        data["message"] = "You haven't joined this group yet."
+        return HttpResponse(json.dumps(data), content_type="application/json")
+
+    group.remove_member(request.user)
+    data["code"] = 0
+    data["success"] = True
+    del data["message"]
+    return HttpResponse(json.dumps(data), content_type="application/json")

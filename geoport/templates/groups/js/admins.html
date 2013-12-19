@@ -1,4 +1,10 @@
 <script>
+
+$(document).ready(function() {
+  initialize_elements();
+
+});
+
 // typeahead.js
 $('#id_admins').typeahead({
   name: 'admins',
@@ -13,13 +19,8 @@ var admins_remove_selector = "[id^='" + prefix_admins + "element-remove-']";
 var admins_button_selector = "#add-admins";
 var admins_input_selector = "#id_admins";
 var admins_format = "/accounts/page/%s/";
-var admins_query_url = "{% url 'admins' slug=blog.slug %}";
+var admins_query_url = "{% url 'groups:admins' slug=group.slug %}";
 //var admins_pattern = /\/\w+\/\w+\/([\w.@+-]+)\//;
-
-
-$(document).ready(function() {
-  initialize_elements();
-});
 
 
 $(document).on("click", admins_remove_selector, function() { 

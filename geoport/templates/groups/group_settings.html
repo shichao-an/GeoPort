@@ -11,14 +11,14 @@
 {% endblock %}
 {% block javascript %}
   {{ block.super }}
-  <script src="{% static 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js' %}"></script>
-  {% include "groups/js/tags.html" %}
   <script src="{% static 'sprintf/src/sprintf.js' %}"></script>
   <script src="{% static 'typeahead.js/dist/typeahead.min.js' %}"></script>
   <script src="{% static 'hogan/web/builds/2.0.0/hogan-2.0.0.min.js' %}"></script>
   <script src="{% static 'js/element.js' %}"></script>
   {% include "groups/js/admins.html" %}
   {% include "ajax_token.html" %}
+  <script src="{% static 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js' %}"></script>
+  {% include "groups/js/tags.html" %}
   <script>
   $('#delete-button').click(function(){
     return confirm('Are you sure to delete this group?');
