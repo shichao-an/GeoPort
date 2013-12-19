@@ -2,7 +2,8 @@ from __future__ import absolute_import
 import requests
 from celery import shared_task
 from .models import User
-from .utils import friending, is_friend, handle_uploaded_file, delete_file
+from .utils import friending, is_friend
+from geoport.utils import handle_uploaded_file, delete_file
 
 
 @shared_task

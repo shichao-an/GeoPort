@@ -22,3 +22,6 @@ bin
 examples
 build
 builds
+*.swp
+.ropeproject
+
