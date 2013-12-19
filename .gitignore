@@ -14,8 +14,7 @@ geoport/media
 *.pid
 
 # BOWER packages
-geoport/components/bower_components/bootstrap/
-geoport/components/bower_components/jquery/
+geoport/components/bower_components/
 
 test
 lib
