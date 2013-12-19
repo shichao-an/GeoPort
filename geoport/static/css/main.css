@@ -101,6 +101,7 @@ h6,
 
 h3.list-group-header {
     margin: 0;
+    color: #777;
 }
 
 li.list-group-header {
@@ -150,6 +151,10 @@ a.list-group-item {
 
 .sidebar-block {
     margin: 1em 0 0 0;
+}
+
+.sidebar-block-right {
+    margin: 0;
 }
 
 .list-group-logo {

@@ -1,8 +1,40 @@
 {% extends "groups/base.html" %}
+{% load pagination_tags %}
 {% block title %}Groups{% endblock %}
 {% block content %}
-
-<h3 style="color:#428bca">Groups</h3>
-
-
+{% autopaginate groups %}
+{% if request.GET.filter == "yours" %}
+  <h3 class="content-title">Your Groups</h3>
+{% else %}
+  <h3 class="content-title">Groups</h3>
+{% endif %}
+<div class="col-md-12">
+  <table class="table">
+    {% if not invalid_page and groups %}
+    <tr>
+      <th>&nbsp;</th>
+      <th>Group</th>
+      <th>Creator</th>
+      <th>Admins</th>
+    </tr>
+    {% endif %}
+  {% for group in groups %}
+    <tr>
+      <td style="width:80px">
+          {% include "thumb.html" with url=group.get_absolute_url thumb=group.logo size="60px" %}
+      </td>
+      <td><a href="{% url 'groups:group' slug=group.slug %}">{{ group.name }}</a></td>
+      <td nowrap><small class="text-muted"><a href="{{ group.creator.get_absolute_url }}">{{ group.creator.username }}</a></small></td>
+      <td nowrap><small class="text-muted">{{ group.admins.all|join:", " }}</small></td>
+    </tr>
+  {% empty %}
+    {% if invalid_page %}
+      <p>Invalid page.</p>
+    {% else %}
+        You haven't created any groups.
+    {% endif %}
+  {% endfor %}
+  </table>
+  {% paginate %}
+</div>
 {% endblock %}

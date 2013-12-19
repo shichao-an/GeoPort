@@ -31,8 +31,8 @@ def uuslug(s, instance, entities=True, decimal=True, hexadecimal=True,
     queryset = instance.__class__.objects.all()
     if filter_dict:
         queryset = queryset.filter(**filter_dict)
-    if instance.pk:
-        queryset = queryset.exclude(pk=instance.pk)
+    if instance.id:
+        queryset = queryset(id__ne=instance.id)
 
     slug = slugify(s, entities=entities, decimal=decimal,
                    hexadecimal=hexadecimal, max_length=max_length,
@@ -55,4 +55,16 @@ def get_post_data(request, *fields):
     data = {}
     for field in fields:
         data[field] = request.POST.get(field)
+    return data
+
+
+def get_initial_data(instance, *fields):
+    data = {}
+    for field in fields:
+        value = getattr(instance, field, '')
+        if value is None:
+            data[field] = ''
+        else:
+            data[field] = value
+    print data
     return data

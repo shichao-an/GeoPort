@@ -4,7 +4,7 @@
 {% url 'accounts:password' as accounts_password_url %}
 <div style="margin: 1em 0">
   <div class="list-group">
-    <li class="list-group-item list-group-header"><h3 class="list-group-header" style="color:#fff">Profile</h3></li>
+    <li class="list-group-item list-group-header"><h3 class="list-group-header">Profile</h3></li>
     <a class="list-group-item {% if request.path == accounts_profile_url %}active{% endif %}" href="{{ accounts_profile_url }}">Profile</a>
     <a class="list-group-item {% if request.path == accounts_settings_url %}active{% endif %}" href="{{ accounts_settings_url }}">Settings</a>
     <a class="list-group-item {% if request.path == accounts_email_url %}active{% endif %}" href="{{ accounts_email_url }}">Email</a>

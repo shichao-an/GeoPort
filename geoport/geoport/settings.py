@@ -97,6 +97,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'pagination_bootstrap.middleware.PaginationMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -122,7 +123,7 @@ INSTALLED_APPS = (
     'djangobower',
     'djsupervisor',
     'missing',
-
+    'pagination_bootstrap',
     # Project apps
     'accounts',  # For autodiscover_tasks of Celery
     'groups',
@@ -218,6 +219,9 @@ BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_PATH, 'components')
 BOWER_INSTALLED_APPS = (
     'bootstrap-hover-dropdown',
     'bootstrap-tagsinput',
+    'sprintf',
+    'typeahead.hs',
+    'hogan',
 )
 
 # django-storages settings are in settings_production.py

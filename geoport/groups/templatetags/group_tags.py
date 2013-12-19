@@ -1,6 +1,7 @@
 from django import template
 register = template.Library()
 from django.core.urlresolvers import reverse
+from geoport.utils import slugify
 
 
 @register.filter('join_group_tags')
@@ -9,7 +10,7 @@ def join_group_tags(value, arg):
     arr = []
     for t in value:
         arr.append('<a href="%s">%s</a>' % (
-            reverse('groups:tag', kwargs={'slug': t}), t
+            reverse('groups:tag', kwargs={'slug': slugify(t)}), t
         ))
     return arg.join(arr)
 

@@ -11,4 +11,5 @@ urlpatterns = patterns('',
     url(r'^avatar/$', 'accounts.views.avatar', name="avatar"),
     url(r'^email/$', 'accounts.views.email', name="email"),
     url(r'^password/$', 'accounts.views.password', name="password"),
+    url(r'^query/users/$', 'accounts.ajax.users', name="users"),
 )

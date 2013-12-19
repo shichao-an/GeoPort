@@ -1,0 +1,70 @@
+{% url 'groups:create' as group_create_url %}
+{% url 'groups:group_settings' slug=group.slug as group_settings_url %}
+<div class="col-md-9">
+  <form class="form-horizontal" method="post" action="{% if request.path == group_create_url %}{{ group_create_url }}{% elif request.path == group_settings_url %}{{ group_settings_url }}{% endif %}" enctype="multipart/form-data">
+{% if form.errors %}
+  {{ form.non_field_errors }}
+{% endif %}
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="id_name" class="col-md-3 control-label">{{ form.name.label }}</label>
+    {{ form.name.errors }}
+    <div class="col-md-9">
+    <input name="name" id="id_name" type="text" class="form-control" placeholder="{{ form.name.label }}" required value="{{ form.initial.name }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_description" class="col-md-3 control-label">{{ form.description.label }}</label>
+    {{ form.description.errors }}
+    <div class="col-md-9">
+    <textarea name="description" class="form-control" rows="3" id="id_description" class="form-control" placeholder="{{ form.description.label }}">{{ form.initial.description }}</textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_is_public" class="col-md-3 control-label">{{ form.is_public.help_text }}</label>
+    <div class="col-md-9">
+      <div class="checkbox">
+        <label>
+          <input name="is_public" id="id_is_public" type="checkbox" checked><span class="help-inline"> Public groups can be viewed and joined by anyone.</span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_tags" class="col-md-3 control-label">Tags</label>
+    <div class="col-md-9">
+      {{ form.tags.errors }}
+      <input name="tags" id="id_tags" type="text" data-role="tagsinput" placeholder="Input a tag name and press Enter" value="{{ form.initial.tags }}"/>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_logo" class="col-md-3 control-label">{{ form.logo.label }}</label>
+    {{ form.logo.errors }}
+    <div class="col-md-9">
+      {% include "fileinput/logo.html" with field="logo" %}
+  </div>
+  <div class="form-group">
+    <label for="id_admins" class="col-md-3 control-label">Admins</label>
+    <div class="col-md-6">
+      <div class="input-group">
+        <input id="id_admins" type="text" class="form-control" placeholder="Username">
+        <span class="input-group-btn">
+          <button type="button" id="add-admins" class="btn btn-primary">Add</button>
+        </span>
+      </div>
+      <span id="admins-errors" class="text-danger"></span>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-8 col-md-offset-4">
+      <span id="admins-list"></span>
+    </div>
+    
+  </div>
+  <div class="form-group">
+    <div class="col-md-9 col-md-offset-3">
+      <button class="btn btn-large btn-primary" type="submit">Save</button>
+    </div>
+  </div>
+  </form>
+</div>

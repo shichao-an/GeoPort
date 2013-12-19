@@ -3,9 +3,11 @@
 {% block sidebar %}
 {% url 'groups:group_index' as groups_group_index_url %}
 {% if request.path|startswith:groups_group_index_url %}
+  {% if request.user in group.admins or request.user == group.creator %}
+    {% include "groups/group_sidebar_admin.html" %}
+  {% endif %}
   {% include "groups/group_sidebar.html" %}
 {% else %}
   {% include "groups/sidebar.html" %}
 {% endif %}
-
 {% endblock %}

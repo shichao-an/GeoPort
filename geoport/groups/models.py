@@ -20,6 +20,7 @@ class Member(EmbeddedDocument):
     member_type = StringField()  # `admin' and `creator' (None for `member')
     user = ReferenceField(User)  # reverse_delete_rule not supported here
 
+    @property
     def is_staff(self):
         if self.member_type is not None:
             return True
@@ -38,7 +39,10 @@ class Member(EmbeddedDocument):
         return False
 
     def __unicode__(self):
-        return "%s (%s)" % (self.user.name, self.member_type)
+        if self.member_type:
+            return "%s (%s)" % (self.user.name, self.member_type)
+        else:
+            return self.user.name
 
 
 class Group(Document):
@@ -100,6 +104,53 @@ class Group(Document):
         return [
             member.user for member in self.members if not member.is_staff
         ]
+
+    @property
+    def staff(self):
+        return [
+            member.user for member in self.members if member.is_staff
+        ]
+
+    @property
+    def users(self):
+        return [
+            member.user for member in self.members
+        ]
+
+    def add_member(self, user, member_type=None):
+        """Add a user as a member to the group
+        Adding an existing user with a different member_type will raise.
+        In other cases, atomic updates will be used.
+        """
+        if member_type == GROUP_CREATOR:
+            raise Exception('Creator cannot be added.')
+        if member_type is not None:
+            if member_type not in [GROUP_ADMIN]:
+                raise Exception('Invalid member type.')
+        if user != self.creator:
+            if member_type == GROUP_ADMIN:
+                if user not in self.regular_members:
+                    member = Member(user=user, member_type=GROUP_ADMIN)
+                else:
+                    raise Exception('This user is already a regular member.')
+            else:
+                if user not in self.admins:
+                    member = Member(user=user)
+                else:
+                    raise Exception('This user is already an admin.')
+            self.update(add_to_set__members=member)
+        else:
+            raise Exception('This user is already the creator.')
+
+    def remove_member(self, user):
+        """Remove a user (member) from the group
+        Removing an non-existent user will not raise exceptions.
+        """
+        if user != self.creator:
+            member = Member(user=user)
+            self.update(pull__members=member)
+        else:
+            raise Exception("The creator cannot be removed.")
 
     def __unicode__(self):
         return self.name
