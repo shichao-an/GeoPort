@@ -1,7 +1,7 @@
 from django.core.urlresolvers import reverse
 from mongoengine.django.auth import User as _User
 from mongoengine import (Document, StringField, ListField, IntField,
-                         ReferenceField, GenericReferenceField)
+                         ReferenceField, GenericReferenceField, GeoPointField)
 
 
 # GeoPortUser.gender options
@@ -33,6 +33,7 @@ class GeoPortUser(_User):
     social_friends = ListField(StringField())
     avatar = StringField()
     gender = IntField()
+    location = GeoPointField()
     meta = {
         'indexes': ['sid']
     }

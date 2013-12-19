@@ -1,0 +1,14 @@
+{% extends "events/base.html" %}
+{% load static %}
+{% block title %}Create Event{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static "bootstrap-tagsinput/dist/bootstrap-tagsinput.css" %}">
+{% endblock %}
+{% block content %}
+<h3 class="content-title">Create Event</h3>
+{% include "events/event_form.html" %}
+{% endblock %}
+{% block javascript %}
+  <script src="{% static 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js' %}"></script>
+  {% include "groups/js/tags.html" %}
+{% endblock %}

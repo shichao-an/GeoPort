@@ -1,0 +1,63 @@
+{% url 'events:create' as events_create_url %}
+<div class="col-md-9">
+  <form class="form-horizontal" method="post" action="{{ events_create_url }}" enctype="multipart/form-data">
+{% if form.errors %}
+  {{ form.non_field_errors }}
+{% endif %}
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="id_title" class="col-md-3 control-label">{{ form.title.label }}</label>
+    {{ form.title.errors }}
+    <div class="col-md-9">
+    <input name="title" id="id_title" type="text" class="form-control" placeholder="{{ form.title.label }}" required value="{{ form.initial.title }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_description" class="col-md-3 control-label">{{ form.description.label }}</label>
+    {{ form.description.errors }}
+    <div class="col-md-9">
+    <textarea name="description" class="form-control" rows="3" id="id_description" class="form-control" placeholder="{{ form.description.label }}">{{ form.initial.description }}</textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_address" class="col-md-3 control-label">{{ form.address.label }}</label>
+    {{ form.address.errors }}
+    <div class="col-md-9">
+    <input name="address" id="id_address" type="text" class="form-control" placeholder="{{ form.address.label }}" required value="{{ form.initial.address }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_zip_code" class="col-md-3 control-label">{{ form.zip_code.label }}</label>
+    {{ form.zip_code.errors }}
+    <div class="col-md-9">
+    <input name="zip_code" id="id_zip_code" type="text" class="form-control" placeholder="{{ form.zip_code.label }}" value="{{ form.initial.zip_code }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_start_time" class="col-md-3 control-label">{{ form.start_time.label }}</label>
+    {{ form.start_time.errors }}
+    <div class="col-md-9">
+    <input name="start_time" id="id_start_time" type="text" class="form-control" placeholder="{{ form.start_time.label }}" required value="{{ form.initial.start_time }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_end_time" class="col-md-3 control-label">{{ form.end_time.label }}</label>
+    {{ form.end_time.errors }}
+    <div class="col-md-9">
+    <input name="end_time" id="id_end_time" type="text" class="form-control" placeholder="{{ form.end_time.label }}" value="{{ form.initial.end_time }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_tags" class="col-md-3 control-label">Tags</label>
+    <div class="col-md-9">
+      {{ form.tags.errors }}
+      <input name="tags" id="id_tags" type="text" data-role="tagsinput" placeholder="Input a tag name and press Enter" value="{{ form.initial.tags }}"/>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-9 col-md-offset-3">
+      <button class="btn btn-large btn-primary" type="submit">Create</button>
+    </div>
+  </div>
+  </form>
+</div>

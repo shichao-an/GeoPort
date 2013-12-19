@@ -194,3 +194,11 @@ h3.user-list-group-header {
 .element-errors {
     margin: 5px 0 0 0;
 }
+
+.thumbnail-no-caption {
+    margin:0;
+}
+
+.portal-well {
+    margin: 0;
+}

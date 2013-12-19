@@ -1,20 +1,18 @@
 <div class="user-list-group">
-  <ul class="list-group" style="margin:1em">
-    <li class="list-group-item">
-      <div class="row">
-        <div class="col-md-8">
-          Name
-        </div>
-        <div class="col-md-4">
-          <div class="member-avatar thumbnail" style="width: 50px; height: 50px">
-            <img data-src="holder.js/100%x100%" alt="Member Avatar">
+  <ul class="list-group" style="margin:10px">
+    {% for user in group.authentic_members %}
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-8">
+            {{ user.name }}
+          </div>
+          <div class="col-md-4">
+            {% include "thumb.html" with url=user.get_absolute_url thumb=user.avatar size="50px" %}
           </div>
         </div>
-      </div>
-    </li>
-    <li class="list-group-item">Dapibus ac facilisis in</li>
-    <li class="list-group-item">Morbi leo risus</li>
-    <li class="list-group-item">Porta ac consectetur ac</li>
-    <li class="list-group-item">Vestibulum at eros</li>
+      </li>
+    {% empty %}
+      <p style="text-align: center">No members.</p>
+    {% endfor %}
   </ul>
 </div>

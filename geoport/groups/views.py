@@ -4,10 +4,11 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.http import Http404
 from django.shortcuts import render
-from accounts.utils import handle_uploaded_file, delete_file
+from geoport.utils import (handle_uploaded_file, delete_file, get_post_data,
+                           get_initial_data)
+from events.models import Event
 from .models import Group
 from .forms import GroupForm
-from geoport.utils import get_post_data, get_initial_data
 
 
 @login_required
@@ -40,7 +41,7 @@ def create(request):
             # Retain POST data if invalid
             data = get_post_data(request, *form.fields)
             form.initial = data
-            context['form'] = form
+            #context['form'] = form
     else:
         form = GroupForm()
     context['form'] = form
@@ -73,6 +74,8 @@ def group(request, slug):
     except:
         raise Http404
     context['group'] = group
+    events = Event.objects.filter(group=group)
+    context['events'] = events
     return render(request, 'groups/group.html', context)
 
 
@@ -104,7 +107,6 @@ def group_settings(request, slug):
             group = form.save(commit=False)
             group.creator = request.user
             group.tags = form.cleaned_data['tags']
-            print form.cleaned_data
             if form.cleaned_data['logo']:
                 path = handle_uploaded_file(request.FILES['logo'], 'uploads')
                 old_path = group.logo
@@ -117,7 +119,7 @@ def group_settings(request, slug):
             # Retain POST data if invalid
             data = get_post_data(request, *form.fields)
             form.initial = data
-            context['form'] = form
+            #context['form'] = form
     else:
         form = GroupForm(instance=group)
         form.initial = get_initial_data(group, *form.fields)

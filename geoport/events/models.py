@@ -1,12 +1,15 @@
+from django.core.urlresolvers import reverse
 from mongoengine import Document, EmbeddedDocument
 from mongoengine import (StringField, ListField, BooleanField, ReferenceField,
                          EmbeddedDocumentField, DateTimeField, GeoPointField,
                          IntField)
 from mongoengine import CASCADE, PULL
-from mongoengine_extras.fields import AutoSlugField
+from mongoengine import signals
+from mongoengine_extras.fields import SlugField
 from accounts.models import User
 from groups.models import Group
 from django.utils import timezone
+from .signals import auto_now_add
 
 
 class Participant(EmbeddedDocument):
@@ -16,9 +19,10 @@ class Participant(EmbeddedDocument):
 
 class Event(Document):
     title = StringField(required=True, max_length=200)
-    slug = AutoSlugField(required=True, unique_with='group')
     description = StringField()
     group = ReferenceField(Group, reverse_delete_rule=CASCADE)
+    creator = ReferenceField(User)
+    photos = ListField(StringField())
     participants = ListField(EmbeddedDocumentField(Participant))
     waiting_list = ListField(EmbeddedDocumentField(Participant))
     address = StringField()
@@ -28,8 +32,9 @@ class Event(Document):
     start_time = DateTimeField(required=True)
     end_time = DateTimeField()
     size = IntField(min_value=1)  # Size cannot be changed after start
+    tags = ListField(StringField())
     meta = {
-        'indexes': ['title', 'slug']
+        'indexes': ['title']
     }
 
     __original_size = None
@@ -41,7 +46,6 @@ class Event(Document):
         self.__original_size = self.size
 
     def save(self, *args, **kwargs):
-        self.slug = self.title
         # Size has been changed
         if self.__original_size != self.size:
             # Event has not started yet
@@ -53,3 +57,14 @@ class Event(Document):
                     self.waiting_list = self.waiting_list + w
 
         super(Event, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        kwargs = {
+            'group_slug': self.group.slug,
+            'event_id': self.id,
+        }
+        return reverse(
+            'events:event', kwargs=kwargs)
+
+# Attaching events
+signals.pre_init.connect(auto_now_add, Event)

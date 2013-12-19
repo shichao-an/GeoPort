@@ -47,11 +47,10 @@ class Member(EmbeddedDocument):
 
 class Group(Document):
     name = StringField(required=True, max_length=100)
-    slug = SlugField()  # AutoSlugField has bugs
+    slug = SlugField(unique=True)  # AutoSlugField has bugs
     description = StringField()
     is_public = BooleanField(default=True, help_text='Is Public')
     logo = StringField()
-    photos = ListField(StringField())
     members = ListField(EmbeddedDocumentField(Member))
     date_created = DateTimeField(required=True)
     tags = ListField(StringField())
@@ -115,6 +114,15 @@ class Group(Document):
     def users(self):
         return [
             member.user for member in self.members
+        ]
+
+    @property
+    def authentic_members(self):
+        """All members except creator
+        Admins will be in the front
+        """
+        return [
+            user for user in self.admins + self.regular_members
         ]
 
     def add_member(self, user, member_type=None):

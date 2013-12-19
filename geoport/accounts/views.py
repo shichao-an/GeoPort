@@ -4,7 +4,8 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import UserCreationForm, FileUploadForm, UserSettingsForm
-from .utils import handle_uploaded_file, delete_file, get_social_auth
+from geoport.utils import handle_uploaded_file, delete_file
+from .utils import get_social_auth
 
 
 @login_required

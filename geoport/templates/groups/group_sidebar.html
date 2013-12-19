@@ -36,14 +36,14 @@
         {% include "groups/group_tags.html" %}
       </div>
     </li>
-    <li class="list-group-item">
-      {% if request.user not in group.staff %}
-        {% if request.user in group.regular_members %}
-          <button type="button" id="quit-button" class="btn btn-danger btn-lg btn-block">Quit</button>
-        {% else %}
-          <button type="button" id="join-button" class="btn btn-success btn-lg btn-block">Join</button>
-        {% endif %}
+    {% if request.user not in group.staff %}
+      <li class="list-group-item">
+      {% if request.user in group.regular_members %}
+        <button type="button" id="quit-button" class="btn btn-danger btn-lg btn-block">Quit</button>
+      {% else %}
+        <button type="button" id="join-button" class="btn btn-success btn-lg btn-block">Join</button>
       {% endif %}
-    </li>
+      </li>
+    {% endif %}
   </div>
 </div>

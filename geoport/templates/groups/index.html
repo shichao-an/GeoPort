@@ -1,5 +1,6 @@
 {% extends "groups/base.html" %}
 {% load pagination_tags %}
+{% load group_tags %}
 {% block title %}Groups{% endblock %}
 {% block content %}
 {% autopaginate groups %}
@@ -23,9 +24,9 @@
       <td style="width:80px">
           {% include "thumb.html" with url=group.get_absolute_url thumb=group.logo size="60px" %}
       </td>
-      <td><a href="{% url 'groups:group' slug=group.slug %}">{{ group.name }}</a></td>
-      <td nowrap><small class="text-muted"><a href="{{ group.creator.get_absolute_url }}">{{ group.creator.username }}</a></small></td>
-      <td nowrap><small class="text-muted">{{ group.admins.all|join:", " }}</small></td>
+      <td><span style="font-size:18px"><a href="{% url 'groups:group' slug=group.slug %}">{{ group.name }}</a></span style="font-size:18px"></td>
+      <td nowrap><span class="text-muted"><a href="{{ group.creator.get_absolute_url }}">{{ group.creator.name }}</a></span></td>
+      <td nowrap><span class="text-muted">{{ group.admins|join_users:", "|safe }}</span></td>
     </tr>
   {% empty %}
     {% if invalid_page %}

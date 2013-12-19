@@ -1,9 +1,9 @@
 {% if thumb %}
-<a href="{{ url }}" class="thumbnail" style="max-width: {{ size }}; ">
+<a href="{{ url }}" class="thumbnail thumbnail-no-caption" style="max-width: {{ size }}; ">
   <img src="{{ MEDIA_URL }}{{ thumb }}" style="max-height: {{ size }}">
 </a>
 {% else %}
-<a href="{{ url }}" class="thumbnail" style="width: {{ size }}; height: {{ size }}">
+<a href="{{ url }}" class="thumbnail thumbnail-no-caption" style="width: {{ size }}; height: {{ size }}">
   <img data-src="holder.js/100%x100%" alt="Group Logo">
 </a>
 {% endif %}
