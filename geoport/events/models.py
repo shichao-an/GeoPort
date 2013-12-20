@@ -16,6 +16,10 @@ class Participant(EmbeddedDocument):
     user = ReferenceField(User)
     visible = BooleanField(default=False)
 
+    def __unicode__(self):
+        visibility = 'visible' if self.visible else 'invisible'
+        return "%s (%s)" % (self.user.name, visibility)
+
 
 class Event(Document):
     title = StringField(required=True, max_length=200)
@@ -65,6 +69,34 @@ class Event(Document):
         }
         return reverse(
             'events:event', kwargs=kwargs)
+
+    def __unicode__(self):
+        return self.title
+
+    @property
+    def users(self):
+        """Return participants as users"""
+        return [
+            participant.user for participant in self.participants
+        ]
+
+    def add_participant(self, user, visible):
+        if user == self.creator:
+            raise Exception('Event creator cannot participate.')
+        p = Participant(user=user, visible=visible)
+        self.update(add_to_set__participants=p)
+
+    def remove_participant(self, user):
+        if user in self.users:
+            participant = Participant(user=user)
+            self.update(pull__participants=participant)
+        else:
+            raise Exception('This user is not a participant.')
+
+    def edit_participant(self, user, visible):
+        """Edit the visibility of a participant user."""
+        events = Event.objects(id=self.id, participants__user=user)
+        events.update_one(set__participants__S__visible=visible)
 
 # Attaching events
 signals.pre_init.connect(auto_now_add, Event)

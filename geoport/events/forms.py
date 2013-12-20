@@ -21,3 +21,7 @@ class EventForm(DocumentForm):
         data = self.cleaned_data['tags']
         tags = data.split(',') if data else []
         return tags
+
+
+class ParticipateForm(forms.Form):
+    visible = forms.BooleanField(required=False)

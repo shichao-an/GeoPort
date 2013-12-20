@@ -8,7 +8,7 @@ from groups.models import Group
 from geoport.utils import (handle_uploaded_file, delete_file, get_post_data,
                            get_initial_data)
 from .models import Event
-from .forms import EventForm
+from .forms import EventForm, ParticipateForm
 import pdb
 
 
@@ -90,3 +90,32 @@ def edit(request, group_slug, event_id):
         form.initial['tags'] = ','.join(form.initial['tags'])
     context['form'] = form
     return render(request, 'events/create.html', context)
+
+
+@login_required
+def participate(request, group_slug, event_id):
+    try:
+        group = Group.objects.get(slug=group_slug)
+    except:
+        raise Http404
+    try:
+        event = Event.objects.get(group=group, id=event_id)
+    except:
+        raise Http404
+    if request.user in group.staff:
+        return HttpResponseRedirect(event.get_absolute_url())
+    context = {}
+    context['group'] = group
+    if request.method == 'POST':
+        form = ParticipateForm(request.POST)
+        if form.is_valid():
+            # process cleaned_data
+            return HttpResponseRedirect(event.get_absolute_url())
+        else:
+            # Retain POST data if invalid
+            data = get_post_data(request, *form.fields)
+            form.initial = data
+    else:
+        form = ParticipateForm()
+    context['form'] = form
+    return render(request, 'events/participate.html', context)
