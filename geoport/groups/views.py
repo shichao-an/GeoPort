@@ -69,7 +69,7 @@ def events(request):
 @login_required
 def personal(request):
     """Personal Group"""
-    pass
+    return render(request, "portal/devops.html")
 
 
 @login_required

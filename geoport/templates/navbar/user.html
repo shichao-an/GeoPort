@@ -5,7 +5,7 @@
 {% url 'accounts:index' as accounts_url %}
   {% if request.user.is_authenticated %}
     <li {% if request.path == groups_url %}class="active"{% endif %}><a href="{{ groups_url }}">Groups</a></li>
-    <li {% if request.path == groups_following_url %}class="active"{% endif %}><a href="{{ friends_url }}">Friends</a></li>
+    <li {% if request.path == friends_url %}class="active"{% endif %}><a href="{{ friends_url }}">Friends</a></li>
     <li {% if request.path == groups_personal_url %}class="active"{% endif %}><a href="{{ groups_personal_url }}">Quick Events</a></li>
     <li {% if request.path|startswith:accounts_url %}class="active"{% endif %} class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
