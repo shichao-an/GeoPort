@@ -5,19 +5,4 @@
   <li class="event-tab-header"><a href="#">Past Events</a></li>
 </ul>
 <br/>
-{% for event in events %}
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h4><a href="{{ event.get_absolute_url }}">{{ event.title }}</a></h4>
-    <span class="text-muted">{{ event.start_time|timezone:"America/New_York"|date:"F j h:i"}}</span>
-  </div>
-  <div class="panel-body">
-    {{ event.description }}
-  </div>
-  <div class="panel-footer text-muted">
-    <span class="text-muted">{{ event.participants|length }} participants / {{ event.waiting_list|length }} waitlisted</span>
-  </div>
-</div>
-{% empty %}
-  <p style="text-align: center">No upcoming events.</p>
-{% endfor %}
+{% include "events/aggregate.html" with category="upcoming events" %}

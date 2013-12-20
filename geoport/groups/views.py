@@ -50,7 +50,8 @@ def create(request):
 
 @login_required
 def events(request):
-    pass
+    context = {}
+    return render(request, 'groups/events.html', context)
 
 
 @login_required

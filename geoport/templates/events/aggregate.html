@@ -1,0 +1,27 @@
+{% load pagination_tags %}
+{% load tz %}
+{% autopaginate events %}
+
+{% for event in events %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    {% if aggregate %}
+      <small><a href="{{ event.group.get_absolute_url }}">{{ event.group.name }}</a></small>
+    {% endif %}
+    <h4><a href="{{ event.get_absolute_url }}">{{ event.title }}</a></h4>
+    <span class="text-muted">{{ event.start_time|timezone:"America/New_York"|date:"F j h:i"}}</span>
+  </div>
+  <div class="panel-body">
+    {% if event.description %}
+      {{ event.description }}
+    {% else %}
+      <p>No description.</p>
+    {% endif %}
+  </div>
+  <div class="panel-footer text-muted">
+    <span class="text-muted">{{ event.participants|length }} participants / {{ event.waiting_list|length }} waitlisted</span>
+  </div>
+</div>
+{% empty %}
+  <p style="text-align: center">No {{ category }}.</p>
+{% endfor %}
