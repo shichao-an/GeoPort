@@ -11,7 +11,7 @@ Features
 
 Dependencies
 ------------
-Servers
+Servers:
 
 - Redis
 - MongoDB
