@@ -1,0 +1,28 @@
+{% extends "events/base.html" %}
+{% load static %}
+{% block title %}Edit Event{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{%static 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'bootstrap-tagsinput/dist/bootstrap-tagsinput.css' %}">
+{% endblock %}
+{% block content %}
+<h3 class="content-title">Edit Event</h3>
+{% include "events/event_form.html" %}
+{% endblock %}
+{% block javascript %}
+  <script type="text/javascript" src="{%static 'moment/min/moment.min.js'%}"></script>
+  <script type="text/javascript" 
+  src="{%static 'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'%}"></script>
+
+  <script type="text/javascript">
+    $(function () {
+      $('.datetimepicker').each(function(){
+        $(this).data('format',"YYYY-MM-DD HH:mm")
+      });
+      $('.datetimepicker').datetimepicker();
+      console.log('hehe')
+    });
+  </script>
+  <script src="{% static 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js' %}"></script>
+  {% include "groups/js/tags.html" %}
+{% endblock %}
