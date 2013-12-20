@@ -1,10 +1,10 @@
 <div class="fileinput fileinput-new" data-provides="fileinput">
 
-  <div class="fileinput-new thumbnail" style="width: 160px; height: 160px;">
+  <div class="fileinput-new thumbnail" style="width: 160px; height: auto;">
     {% if form.instance.logo %}
       <img src="{{ MEDIA_URL }}{{ form.instance.logo }}" alt="Group Logo">
     {% else %}
-      <img data-src="holder.js/100%x100%" alt="Group Logo">
+      <img data-src="holder.js/150x150" alt="Group Logo" style="width:150px; height:150px">
     {% endif %}
   </div>
   <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 300px; max-height: 160px">
