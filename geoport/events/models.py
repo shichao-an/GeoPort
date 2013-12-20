@@ -30,7 +30,7 @@ class Event(Document):
     participants = ListField(EmbeddedDocumentField(Participant))
     waiting_list = ListField(EmbeddedDocumentField(Participant))
     address = StringField(required=True)
-    zip_code = IntField()
+    zip_code = StringField()
     location = GeoPointField()
     date_created = DateTimeField(required=True)
     start_time = DateTimeField(required=True)

@@ -138,7 +138,7 @@ def get_location_by_address(address, sensor=True):
     """
     params = {}
     params['sensor'] = 'true' if sensor else 'false'
-    params['address'] = str(address).encode('utf-8')
+    params['address'] = address.encode('utf-8')
     res = requests.get(GEOCODING_URL, params=params).json()
     try:
         lat = res['results'][0]['geometry']['location']['lat']

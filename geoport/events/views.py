@@ -47,6 +47,7 @@ def create(request, slug):
             event.creator = request.user
             event.group = group
             event.tags = form.cleaned_data['tags']
+            event.location = form.cleaned_data['location']
             event.save()
             return HttpResponseRedirect(event.get_absolute_url())
         else:
@@ -55,8 +56,6 @@ def create(request, slug):
             form.initial = data
     else:
         form = EventForm()
-    #print 123, form.initial
-    #print form.initial['start_time']
     context['form'] = form
     return render(request, 'events/create.html', context)
 
@@ -78,13 +77,15 @@ def edit(request, group_slug, event_id):
     context['event'] = event
     if request.method == 'POST':
         form = EventForm(request.POST, request.FILES, instance=event)
-        d = get_post_data(request, *form.fields)
-        print d
+        #d = get_post_data(request, *form.fields)
+        #print d
         if form.is_valid():
             event = form.save(commit=False)
             event.creator = request.user
             event.group = group
             event.tags = form.cleaned_data['tags']
+            event.location = form.cleaned_data['location']
+            print event.location
             event.save()
             return HttpResponseRedirect(event.get_absolute_url())
         else:
