@@ -23,13 +23,17 @@
       {% endif %}
     {%endif%}
   </a>
-  <div class="caption" style="text-align: center" >
-  {% if request.user.avatar %}
-      <a href="{% url 'accounts:avatar' %}" class="btn btn-primary btn-sm" role="button" style="margin:1em 0 0 0">Change</a>
-  {% else %}
-      <a href="{% url 'accounts:avatar' %}" class="btn btn-primary btn-sm" role="button" style="margin:1em 0 0 0">Upload</a>
-  {% endif %}
-  </div>
+  
+  {%if not is_other %}
+    <div class="caption" style="text-align: center" >
+    {% if request.user.avatar %}
+        <a href="{% url 'accounts:avatar' %}" class="btn btn-primary btn-sm" role="button" style="margin:1em 0 0 0">Change</a>
+    {% else %}
+        <a href="{% url 'accounts:avatar' %}" class="btn btn-primary btn-sm" role="button" style="margin:1em 0 0 0">Upload</a>
+    {% endif %}
+    </div>
+  {%endif%}
+
 </div>
 <div class="col-md-8">
   <dl class="dl-horizontal">
