@@ -6,9 +6,12 @@
   <div class="list-group">
     <li class="list-group-item list-group-header"><h3 class="list-group-header">Profile</h3></li>
     <a class="list-group-item {% if request.path == accounts_profile_url %}active{% endif %}" href="{{ accounts_profile_url }}">Profile</a>
+    {%if is_other == 1 %}
+    {%else%}
     <a class="list-group-item {% if request.path == accounts_settings_url %}active{% endif %}" href="{{ accounts_settings_url }}">Settings</a>
     <a class="list-group-item {% if request.path == accounts_email_url %}active{% endif %}" href="{{ accounts_email_url }}">Email</a>
     <a class="list-group-item {% if request.path == accounts_password_url %}active{% endif %}" href="{{ accounts_password_url }}">Password</a>
+    {%endif%}
   </div>
 </div>
 

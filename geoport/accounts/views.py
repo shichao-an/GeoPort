@@ -6,6 +6,9 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserCreationForm, FileUploadForm, UserSettingsForm
 from geoport.utils import handle_uploaded_file, delete_file
 from .utils import get_social_auth
+from django.http import Http404
+from mongoengine.django.auth import User
+from django.http import HttpResponse
 
 
 @login_required
@@ -104,4 +107,16 @@ def avatar(request):
 
 def user(request, username):
     """User page"""
-    pass
+    context = {}
+    try:
+        user = User.objects.get(username=username)
+        if user.id == request.user.id:
+            is_other = 0
+        else:
+            is_other = 1
+        context['is_other'] = is_other
+        context['user'] = user
+        #return HttpResponse(user.id)
+        return render(request, "accounts/profile.html", context)
+    except:
+        raise Http404
