@@ -202,3 +202,7 @@ h3.user-list-group-header {
 .portal-well {
     margin: 0;
 }
+
+.table>tbody>tr>td {
+  vertical-align: middle;
+} 

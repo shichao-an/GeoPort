@@ -116,7 +116,6 @@ def user(request, username):
             is_other = 1
         context['is_other'] = is_other
         context['user'] = user
-        #return HttpResponse(user.id)
         return render(request, "accounts/profile.html", context)
     except:
         raise Http404
