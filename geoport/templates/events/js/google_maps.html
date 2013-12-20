@@ -15,7 +15,7 @@ var eventMarkersUrl = "{% url 'events:markers' group_slug=group.slug event_id=ev
 
 // String formatter for InfoWindow content string
 var infoContentFormat = '<div class="info-window">';
-infoContentFormat += '<div class="info-window-title"><h4 class="panel-title">%s</h4></div>';
+infoContentFormat += '<div class="info-window-title"><h4 class="panel-title"><a href="%s">%s</a></h4></div>';
 infoContentFormat += '<div class="info-window-body"><p>%s</p></div>';
 infoContentFormat += '</div>';
 
@@ -38,7 +38,7 @@ function initialize() {
   // Set marker for current event
   setEventMarker();
   setParticipantMarkers();
-  //setTimeout(setParticipantMarkers, 2000);
+
   //google.maps.event.trigger(map, 'resize');
 }
 
@@ -54,7 +54,7 @@ function setEventMarker() {
     map: map,
     title: '{{ event.title }}'
   });
-  var eventContent = sprintf(infoContentFormat, '{{ event.title }}', '{{ event.address }}');
+  var eventContent = sprintf(infoContentFormat, '{{ event.get_absolute_url }}', '{{ event.title }}', '{{ event.address }}');
   bindInfo(marker, eventContent, infoWindow);
 }
 
@@ -66,6 +66,8 @@ function setParticipantMarkers() {
 }
 
 function setMarkers(data) {
+  // First, delete existing markers if any
+  deleteMarkers();
   for(var i=0; i < data.length; i++){
     // Initialize location for current marker
     var currentPos = new google.maps.LatLng(data[i].lat, data[i].lon);
@@ -76,8 +78,12 @@ function setMarkers(data) {
       icon: data[i].pin, 
       title: data[i].name
     });
-
-    var markerContent = sprintf(infoContentFormat, data[i].name, '');
+    var image = '';
+    if (data[i].image){
+      var format = '<a href="%s" class="thumbnail thumbnail-no-caption" style="max-width: 50px; "><img src="{{ MEDIA_URL }}%s" style="max-height: 50px"></a>';
+      var image = sprintf(format, data[i].url, data[i].image)
+    }
+    var markerContent = sprintf(infoContentFormat, data[i].url, data[i].name, image);
 
     // Bind InfoWindow
     bindInfo(marker, markerContent, infoWindow);
@@ -182,7 +188,7 @@ function bindInfo(marker, contentString, infowindow) {
 /* Control animation on marker */
 function markerTriggerHover(marker_id){
   // `markers' is a global array holding marker objects
-  google.maps.event.trigger(markers[marker_id], 'click');
+  //google.maps.event.trigger(markers[marker_id], 'click');
   if (currentTrigger) {
     markers[marker_id].setAnimation(null);
   }
@@ -193,5 +199,24 @@ function markerTriggerHover(marker_id){
 function markerTriggerClick(marker_id){
     google.maps.event.trigger(markers[marker_id], 'click');
 }
+
+// Sets the map on all markers in the array.
+function setAllMap(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+  setAllMap(null);
+}
+
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
+}
+
 
 </script>
