@@ -109,7 +109,9 @@ def participate(request, group_slug, event_id):
     if request.method == 'POST':
         form = ParticipateForm(request.POST)
         if form.is_valid():
-            # process cleaned_data
+            visible = form.visible
+            event.add_participant(request.user, visible)
+            event.save()
             return HttpResponseRedirect(event.get_absolute_url())
         else:
             # Retain POST data if invalid
