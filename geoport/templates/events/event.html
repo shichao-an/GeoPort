@@ -1,14 +1,27 @@
 {% extends "events/base.html" %}
 {% load static %}
 {% block title %}{{ event.title }}{% endblock %}
-{% block css %}
+{% block front_css %}
+<style>
+    #map-canvas { width: 100%; height: 100% }
+    #map-canvas img {
+      max-width: none;
+    }
+    #map-canvas {
+      width: auto; display:inline;
+    }
+</style>
 {% endblock %}
 {% block content %}
+{% include "events/geo_errors.html" %}
 <h3 class="content-title">{{ event.title }}</h3>
-
+<p class="text-muted">From <a href="{{ group.get_absolute_url }}">{{ group.name }}</a></p>
 <div class="row">
   <div class="col-md-8">
-    Event info
+    {% include "events/event_info.html" %}
+    {% include "events/event_description.html" %}
+    {% include "events/event_map.html" %}
+    {% include "events/event_comments.html" %}
   </div>
   <div class="col-md-4">
     {% include "events/event_participants.html" %}
@@ -17,5 +30,5 @@
 
 {% endblock %}
 {% block javascript %}
-
+  {% include "events/js/google_maps.html" %}
 {% endblock %}

@@ -99,12 +99,6 @@ class Group(Document):
         ]
 
     @property
-    def regular_members(self):
-        return [
-            member.user for member in self.members if not member.is_staff
-        ]
-
-    @property
     def staff(self):
         return [
             member.user for member in self.members if member.is_staff
@@ -117,12 +111,34 @@ class Group(Document):
         ]
 
     @property
-    def authentic_members(self):
+    def regular_users(self):
+        return [
+            member.user for member in self.members if not member.is_staff
+        ]
+
+    @property
+    def authentic_users(self):
         """All members except creator
         Admins will be in the front
         """
         return [
-            user for user in self.admins + self.regular_members
+            user for user in self.admins + self.regular_users
+        ]
+
+    @property
+    def regular_members(self):
+        return [
+            member for member in self.members if not member.is_staff
+        ]
+
+    @property
+    def authentic_members(self):
+        """All members except creator
+        Admins will be in the front
+        """
+        admin_members = [member for member in self.members if member.is_admin]
+        return [
+            member for member in admin_members + self.regular_members
         ]
 
     def add_member(self, user, member_type=None):
@@ -137,7 +153,7 @@ class Group(Document):
                 raise Exception('Invalid member type.')
         if user != self.creator:
             if member_type == GROUP_ADMIN:
-                if user not in self.regular_members:
+                if user not in self.regular_users:
                     member = Member(user=user, member_type=GROUP_ADMIN)
                 else:
                     raise Exception('This user is already a regular member.')

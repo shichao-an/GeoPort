@@ -4,10 +4,10 @@
       <li class="list-group-item">
         <div class="row">
           <div class="col-md-8">
-            {{ user.name }}
+            {{ user.user.name }}
           </div>
           <div class="col-md-4">
-            {% include "thumb.html" with url=user.get_absolute_url thumb=user.avatar size="50px" %}
+            {% include "thumb.html" with url=user.user.get_absolute_url thumb=user.user.avatar size="50px" %}
           </div>
         </div>
       </li>

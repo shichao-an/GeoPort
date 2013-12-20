@@ -1,0 +1,9 @@
+{% load tz %}
+<div style="margin:0 0 1.5em 0">
+  <h4 class="event-info">
+    <span class="glyphicon glyphicon-time"></span> {{ event.start_time|timezone:"America/New_York"|date:"l, F j, Y g:i A"}}
+  </h4>
+  <h4 class="event-info">
+    <span class="glyphicon glyphicon-map-marker"></span> {{ event.address }}
+  </h4>
+</div>

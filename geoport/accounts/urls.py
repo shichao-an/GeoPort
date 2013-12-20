@@ -12,4 +12,5 @@ urlpatterns = patterns('',
     url(r'^email/$', 'accounts.views.email', name="email"),
     url(r'^password/$', 'accounts.views.password', name="password"),
     url(r'^query/users/$', 'accounts.ajax.users', name="users"),
+    url(r'^query/location/$', 'accounts.ajax.location', name="location"),
 )

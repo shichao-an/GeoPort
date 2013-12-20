@@ -1,6 +1,17 @@
+{% if request.user != event.creator %}
+  <div class="sidebar-block-right" style="margin:0 0 1em 0">
+    <li class="list-group-item">
+    {% if request.user in event.users %}
+      <a type="button" id="quit-button" class="btn btn-warning btn-lg btn-block">Leave</a>
+    {% else %}
+      <a href="{% url 'events:participate' group_slug=group.slug event_id=event.id %}" type="button" id="join-button" class="btn btn-primary btn-lg btn-block">Participate</a>
+    {% endif %}
+    </li>
+  </div>
+{% endif %}
 <div class="sidebar-block-right">
   <div class="list-group">
-    <li class="list-group-item"><h3 class="user-list-group-header">Participants</h3></li>
-    {% include "groups/user_list_group.html" with users=events.participants category="participants" %}
+    <li class="list-group-item list-group-panel-heading"><h4 class="user-list-group-header">Participants</h4></li>
+    {% include "groups/user_list_group.html" with users=event.participants category="participants" %}
   </div>
 </div>

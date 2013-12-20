@@ -60,7 +60,7 @@ def admins(request, slug):
                 json.dumps(data), content_type="application/json")
 
         # Successful action
-        if admin in group.regular_members:
+        if admin in group.regular_users:
             group.edit_member(admin, 'admin')
         else:
             group.add_member(admin, 'admin')
@@ -148,7 +148,7 @@ def quit(request, slug):
         data["message"] = "You cannot quit your created/moderated group."
         return HttpResponse(json.dumps(data), content_type="application/json")
 
-    if request.user not in group.regular_members:
+    if request.user not in group.regular_users:
         data["code"] = 4
         data["message"] = "You haven't joined this group yet."
         return HttpResponse(json.dumps(data), content_type="application/json")

@@ -9,7 +9,7 @@
       <small><a href="{{ event.group.get_absolute_url }}">{{ event.group.name }}</a></small>
     {% endif %}
     <h4><a href="{{ event.get_absolute_url }}">{{ event.title }}</a></h4>
-    <span class="text-muted">{{ event.start_time|timezone:"America/New_York"|date:"F j h:i"}}</span>
+    <span class="text-muted">{{ event.start_time|timezone:"America/New_York"|date:"F j g:i A"}}</span>
   </div>
   <div class="panel-body">
     {% if event.description %}

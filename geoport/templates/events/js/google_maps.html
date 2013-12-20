@@ -1,0 +1,91 @@
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6rSZbXNC7h4U8yV_Pw3f5Tks1tD8loKA&libraries=geometry&sensor=true">
+</script>
+<script>
+/* Global variables */
+var map;                    // Google Maps
+var eventPos;               // Event location
+var markers = new Array();  // Marker objects
+var currentTrigger = null;  // Animation trigger
+
+/* Initialize the Google Maps canvas */
+function initialize() {
+  var mapOptions = {
+    zoom: 15,
+    center: new google.maps.LatLng(40.790278, -73.959722),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  detectBrowser();  // Detect browser to render the map properly
+}
+
+/* Get user location through HTML5 Geolocation */
+function getUserLocation(){
+  // Try HTML5 geolocation
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      if (pos) updateUserLocation(pos);  // Update user location via Ajax
+    }, function() {
+      handleNoGeolocation(true);
+    });
+  } 
+  else {
+    // Browser doesn't support Geolocation
+    handleNoGeolocation(false);
+  }
+}
+
+function handleNoGeolocation(errorFlag) {
+  if (errorFlag) {
+    $('#geo-error-geolocation').show();
+  } 
+  else {
+    $('#geo-error-browser').show();
+  }
+}
+
+function myLocation(){
+    map.setCenter(pos);
+}
+
+function inputMyLocation(){
+    $("#id_location").val(pos.toString().slice(1,-1));
+}
+
+
+function detectBrowser() {
+  var useragent = navigator.userAgent;
+  var mapcanvas = document.getElementById("map-canvas");
+  var clientWidth = document.documentElement.clientWidth - 40;
+  var clientHeight = document.documentElement.clientWidth;
+  if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
+    mapcanvas.style.width = clientWidth + 'px';
+    mapcanvas.style.height = clientHeight + 'px';
+  } else {
+    var mapcontainer = $('#map-container');
+    var w = mapcontainer.css('width');
+    mapcanvas.style.width = w;
+    mapcanvas.style.height = w;
+  }
+}
+
+function markerTriggerHover(marker_id){
+    google.maps.event.trigger(markers[marker_id], 'click');
+    if (currentTrigger) {
+      markers[marker_id].setAnimation(null);
+    }
+    currentTrigger = markers[marker_id];
+    markers[marker_id].setAnimation(google.maps.Animation.BOUNCE);
+
+}
+
+function markerTriggerClick(marker_id){
+    google.maps.event.trigger(markers[marker_id], 'click');
+}
+
+function updateUserLocation(pos){
+
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>

@@ -24,4 +24,4 @@ class EventForm(DocumentForm):
 
 
 class ParticipateForm(forms.Form):
-    visible = forms.BooleanField(required=False)
+    visible = forms.BooleanField(required=False, help_text='Share location')

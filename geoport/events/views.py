@@ -102,14 +102,15 @@ def participate(request, group_slug, event_id):
         event = Event.objects.get(group=group, id=event_id)
     except:
         raise Http404
-    if request.user in group.staff:
+    if request.user == event.creator:
         return HttpResponseRedirect(event.get_absolute_url())
     context = {}
     context['group'] = group
+    context['event'] = event
     if request.method == 'POST':
         form = ParticipateForm(request.POST)
         if form.is_valid():
-            visible = form.visible
+            visible = form.cleaned_data['visible']
             event.add_participant(request.user, visible)
             event.save()
             return HttpResponseRedirect(event.get_absolute_url())
