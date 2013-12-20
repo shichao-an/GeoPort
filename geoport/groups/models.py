@@ -69,7 +69,7 @@ class Group(Document):
     def past_events(self):
         from events.models import Event
         events = Event.objects.filter(
-            Q(group=self) & Q(date_created__lte=timezone.now())
+            Q(group=self) & Q(start_time__lte=timezone.now())
         )
         return events
 
@@ -77,7 +77,7 @@ class Group(Document):
     def upcoming_events(self):
         from events.models import Event
         events = Event.objects.filter(
-            Q(group=self) & Q(date_created__gte=timezone.now())
+            Q(group=self) & Q(start_time__gte=timezone.now())
         )
         return events
 
