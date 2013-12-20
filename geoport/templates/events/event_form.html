@@ -1,4 +1,5 @@
 {% url 'events:create' as events_create_url %}
+
 <div class="col-md-9">
   <form class="form-horizontal" method="post" action="{{ events_create_url }}" enctype="multipart/form-data">
 {% if form.errors %}
@@ -34,17 +35,17 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="id_start_time" class="col-md-3 control-label">{{ form.start_time.label }}</label>
+    <label for="id_start_time" class="col-md-3 control-label ">{{ form.start_time.label }}</label>
     {{ form.start_time.errors }}
     <div class="col-md-9">
-    <input name="start_time" id="id_start_time" type="text" class="form-control" placeholder="{{ form.start_time.label }}" required value="{{ form.initial.start_time }}">
+    <input name="start_time" id="id_start_time" type="text" class="form-control datetimepicker" placeholder="{{ form.start_time.label }}" required value="{{ form.initial.start_time }}">
     </div>
   </div>
   <div class="form-group">
-    <label for="id_end_time" class="col-md-3 control-label">{{ form.end_time.label }}</label>
+    <label for="id_end_time" class="col-md-3 control-label ">{{ form.end_time.label }}</label>
     {{ form.end_time.errors }}
     <div class="col-md-9">
-    <input name="end_time" id="id_end_time" type="text" class="form-control" placeholder="{{ form.end_time.label }}" value="{{ form.initial.end_time }}">
+    <input name="end_time" id="id_end_time" type="text" class="form-control datetimepicker" placeholder="{{ form.end_time.label }}" value="{{ form.initial.end_time }}">
     </div>
   </div>
   <div class="form-group">
