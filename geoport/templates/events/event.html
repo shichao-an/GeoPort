@@ -5,6 +5,16 @@
 {% endblock %}
 {% block content %}
 <h3 class="content-title">{{ event.title }}</h3>
+
+<div class="row">
+  <div class="col-md-8">
+    Event info
+  </div>
+  <div class="col-md-4">
+    {% include "events/event_participants.html" %}
+  </div>
+</div>
+
 {% endblock %}
 {% block javascript %}
 

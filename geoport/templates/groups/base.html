@@ -2,8 +2,7 @@
 {% load string_tags %}
 {% block sidebar %}
 {% url 'groups:group_index' as groups_group_index_url %}
-{% url 'events:event' as events_event_url %}
-{% if request.path|startswith:groups_group_index_url %}
+{% if request.path|startswith:groups_group_index_url or event %}
   {% if request.user in group.admins or request.user == group.creator %}
     {% include "groups/group_sidebar_admin.html" %}
   {% endif %}
