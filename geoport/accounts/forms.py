@@ -2,6 +2,7 @@ from django import forms
 #from django.contrib.auth.forms import UserCreationForm as _UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 from mongodbforms import DocumentForm
+from geoport.utils import DivErrorList
 from .models import User
 
 
@@ -37,6 +38,10 @@ class UserCreationForm(DocumentForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name')
+
+    def __init__(self, *args, **kwargs):
+        kwargs['error_class'] = DivErrorList
+        super(UserCreationForm, self).__init__(*args, **kwargs)
 
     def clean_username(self):
         username = self.cleaned_data['username']

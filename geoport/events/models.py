@@ -29,7 +29,7 @@ class Event(Document):
     photos = ListField(StringField())
     participants = ListField(EmbeddedDocumentField(Participant))
     waiting_list = ListField(EmbeddedDocumentField(Participant))
-    address = StringField()
+    address = StringField(required=True)
     zip_code = IntField()
     location = GeoPointField()
     date_created = DateTimeField(required=True)

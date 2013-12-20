@@ -3,10 +3,28 @@ from bson import json_util
 import os
 import uuid
 import random
+import requests
 from slugify import slugify as pyslugify
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.utils.encoding import smart_unicode
+from django.utils.safestring import mark_safe
+from django.forms.util import ErrorList
+
+
+GEOCODING_URL = 'http://maps.googleapis.com/maps/api/geocode/json'
+
+
+class DivErrorList(ErrorList):
+
+    def __unicode__(self):
+        return mark_safe(self.as_divs())
+
+    def as_divs(self):
+        if not self:
+            return u''
+        divs = [u'<div class="error">%s</div>' % e for e in self]
+        return u'<div class="errorlist">%s</div>' % ''.join(divs)
 
 
 class JSONSerializer(object):
@@ -112,3 +130,19 @@ def handle_uploaded_file(f, category, filename=None):
 
 def delete_file(path):
     default_storage.delete(path)
+
+
+def get_location_by_address(address, sensor=True):
+    """Get location by address (string) using Google Geocoding
+    Return a 2-tuple of coordinates (latitude, longitude)
+    """
+    params = {}
+    params['sensor'] = 'true' if sensor else 'false'
+    params['address'] = address.encode('utf-8')
+    res = requests.get(GEOCODING_URL, params=params).json()
+    try:
+        lat = res['results'][0]['geometry']['location']['lat']
+        lng = res['results'][0]['geometry']['location']['lng']
+        return lat, lng
+    except:
+        return None

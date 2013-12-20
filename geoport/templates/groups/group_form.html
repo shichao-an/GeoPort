@@ -8,16 +8,16 @@
   {% csrf_token %}
   <div class="form-group">
     <label for="id_name" class="col-md-3 control-label">{{ form.name.label }}</label>
-    {{ form.name.errors }}
     <div class="col-md-9">
-    <input name="name" id="id_name" type="text" class="form-control" placeholder="{{ form.name.label }}" required value="{{ form.initial.name }}">
+      {{ form.name.errors }}
+      <input name="name" id="id_name" type="text" class="form-control" placeholder="{{ form.name.label }}" required value="{{ form.initial.name }}">
     </div>
   </div>
   <div class="form-group">
     <label for="id_description" class="col-md-3 control-label">{{ form.description.label }}</label>
-    {{ form.description.errors }}
     <div class="col-md-9">
-    <textarea name="description" class="form-control" rows="3" id="id_description" class="form-control" placeholder="{{ form.description.label }}">{{ form.initial.description }}</textarea>
+      {{ form.description.errors }}
+      <textarea name="description" class="form-control" rows="3" id="id_description" class="form-control" placeholder="{{ form.description.label }}">{{ form.initial.description }}</textarea>
     </div>
   </div>
   <div class="form-group">
@@ -39,8 +39,8 @@
   </div>
   <div class="form-group">
     <label for="id_logo" class="col-md-3 control-label">{{ form.logo.label }}</label>
-    {{ form.logo.errors }}
     <div class="col-md-9">
+      {{ form.logo.errors }}
       {% include "fileinput/logo.html" with field="logo" %}
   </div>
   {% if request.path == group_settings_url %}

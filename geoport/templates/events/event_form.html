@@ -8,44 +8,44 @@
   {% csrf_token %}
   <div class="form-group">
     <label for="id_title" class="col-md-3 control-label">{{ form.title.label }}</label>
-    {{ form.title.errors }}
     <div class="col-md-9">
-    <input name="title" id="id_title" type="text" class="form-control" placeholder="{{ form.title.label }}" required value="{{ form.initial.title }}">
+      {{ form.title.errors }}
+      <input name="title" id="id_title" type="text" class="form-control" placeholder="{{ form.title.label }}" value="{{ form.initial.title }}">
     </div>
   </div>
   <div class="form-group">
     <label for="id_description" class="col-md-3 control-label">{{ form.description.label }}</label>
-    {{ form.description.errors }}
     <div class="col-md-9">
-    <textarea name="description" class="form-control" rows="3" id="id_description" class="form-control" placeholder="{{ form.description.label }}">{{ form.initial.description }}</textarea>
+      {{ form.description.errors }}
+      <textarea name="description" class="form-control" rows="3" id="id_description" class="form-control" placeholder="{{ form.description.label }}">{{ form.initial.description }}</textarea>
     </div>
   </div>
   <div class="form-group">
     <label for="id_address" class="col-md-3 control-label">{{ form.address.label }}</label>
-    {{ form.address.errors }}
     <div class="col-md-9">
-    <input name="address" id="id_address" type="text" class="form-control" placeholder="{{ form.address.label }}" required value="{{ form.initial.address }}">
+      {{ form.address.errors }}
+      <input name="address" id="id_address" type="text" class="form-control" placeholder="{{ form.address.label }}" value="{{ form.initial.address }}">
     </div>
   </div>
   <div class="form-group">
     <label for="id_zip_code" class="col-md-3 control-label">{{ form.zip_code.label }}</label>
-    {{ form.zip_code.errors }}
     <div class="col-md-9">
-    <input name="zip_code" id="id_zip_code" type="text" class="form-control" placeholder="{{ form.zip_code.label }}" value="{{ form.initial.zip_code }}">
+      {{ form.zip_code.errors }}
+      <input name="zip_code" id="id_zip_code" type="text" class="form-control" placeholder="{{ form.zip_code.label }}" value="{{ form.initial.zip_code }}">
     </div>
   </div>
   <div class="form-group">
     <label for="id_start_time" class="col-md-3 control-label ">{{ form.start_time.label }}</label>
-    {{ form.start_time.errors }}
     <div class="col-md-9">
-    <input name="start_time" id="id_start_time" type="text" class="form-control datetimepicker" placeholder="{{ form.start_time.label }}" required value="{{ form.initial.start_time }}">
+      {{ form.start_time.errors }}
+      <input name="start_time" id="id_start_time" type="text" class="form-control datetimepicker" placeholder="{{ form.start_time.label }}" required value="{{ form.initial.start_time }}">
     </div>
   </div>
   <div class="form-group">
     <label for="id_end_time" class="col-md-3 control-label ">{{ form.end_time.label }}</label>
-    {{ form.end_time.errors }}
     <div class="col-md-9">
-    <input name="end_time" id="id_end_time" type="text" class="form-control datetimepicker" placeholder="{{ form.end_time.label }}" value="{{ form.initial.end_time }}">
+      {{ form.end_time.errors }}
+      <input name="end_time" id="id_end_time" type="text" class="form-control datetimepicker" placeholder="{{ form.end_time.label }}" value="{{ form.initial.end_time }}">
     </div>
   </div>
   <div class="form-group">
