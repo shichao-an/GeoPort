@@ -1,0 +1,14 @@
+{% extends "groups/base.html" %}
+{% load pagination_tags %}
+{% load group_tags %}
+{% block title %}Groups{% endblock %}
+{% block content %}
+{% if request.GET.filter == "yours" %}
+  <h3 class="content-title">Your Groups</h3>
+{% else %}
+  <h3 class="content-title">Groups</h3>
+{% endif %}
+<div class="col-md-12">
+  {% include "events/aggregate.html" with category="upcoming events" aggregate=1 %}
+</div>
+{% endblock %}

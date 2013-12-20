@@ -51,6 +51,18 @@ def create(request):
 @login_required
 def events(request):
     context = {}
+    #events = Event.objects.filter(
+    #group = ReferenceField(Group, reverse_delete_rule=CASCADE)
+    f = request.GET.get('filter')
+    if f == 'yours':
+        groups = Group.objects.filter(members__user=request.user)
+    else:
+        groups = Group.objects.all()
+    context = {}
+    #context['groups'] = groups
+    events = Event.objects.filter(group__in=groups).order_by('-start_time')
+    context['events'] = events
+    #return render(request, 'groups/index.html', context)
     return render(request, 'groups/events.html', context)
 
 

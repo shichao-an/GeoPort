@@ -19,6 +19,7 @@
       <th>Admins</th>
     </tr>
     {% endif %}
+
   {% for group in groups %}
     <tr>
       <td style="width:80px">
@@ -35,6 +36,7 @@
         You haven't created any groups.
     {% endif %}
   {% endfor %}
+
   </table>
   {% paginate %}
 </div>
