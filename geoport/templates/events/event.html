@@ -32,4 +32,6 @@
 {% endblock %}
 {% block javascript %}
   {% include "events/js/google_maps.html" %}
+  {% include "ajax_token.html" %}
+  <script src="{% static 'sprintf/src/sprintf.js' %}"></script>
 {% endblock %}

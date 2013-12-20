@@ -6,53 +6,49 @@ var map;                    // Google Maps
 var eventPos;               // Event location
 var markers = new Array();  // Marker objects
 var currentTrigger = null;  // Animation trigger
+var currentMarker = null;   // Marker
+
+// String formatter for InfoWindow content string
+var infoContentFormat = '<div class="info-window">';
+infoContentFormat += '<div class="info-window-title"><h4 class="panel-title">%s</h4></div>';
+infoContentFormat += '<div class="info-window-body"><p>%s</p></div>';
+infoContentFormat += '</div>';
 
 /* Initialize the Google Maps canvas */
 function initialize() {
   var mapOptions = {
     zoom: 15,
-    center: new google.maps.LatLng(40.790278, -73.959722),
+    center: new google.maps.LatLng({{ event.location|join:", "}}),
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   detectBrowser();  // Detect browser to render the map properly
-}
 
-/* Get user location through HTML5 Geolocation */
-function getUserLocation(){
-  // Try HTML5 geolocation
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      if (pos) updateUserLocation(pos);  // Update user location via Ajax
-    }, function() {
-      handleNoGeolocation(true);
-    });
-  } 
-  else {
-    // Browser doesn't support Geolocation
-    handleNoGeolocation(false);
-  }
-}
+  // Get user location
+  getUserLocation("{% url 'accounts:location' %}", 'location');
 
-function handleNoGeolocation(errorFlag) {
-  if (errorFlag) {
-    $('#geo-error-geolocation').show();
-  } 
-  else {
-    $('#geo-error-browser').show();
-  }
-}
+  // Initialize a InfoWindow objects
+  var infowindow = new google.maps.InfoWindow();
 
-function myLocation(){
-    map.setCenter(pos);
-}
+  /* Set marker for event location */
+  var marker = new google.maps.Marker({
+    position: new google.maps.LatLng({{ event.location|join:", "}}),
+    map: map,
+    title: '{{ event.title }}'
+  });
 
-function inputMyLocation(){
-    $("#id_location").val(pos.toString().slice(1,-1));
+  var eventContent = sprintf(infoContentFormat, '{{ event.title }}', '{{ event.address }}');
+  bindInfo(marker, eventContent, infowindow);
 }
 
 
+/* Load initialize() */
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+/* The following functions remain intact */
+/* Detect browser type of user to initialize a map that fit */
 function detectBrowser() {
   var useragent = navigator.userAgent;
   var mapcanvas = document.getElementById("map-canvas");
@@ -69,23 +65,68 @@ function detectBrowser() {
   }
 }
 
-function markerTriggerHover(marker_id){
-    google.maps.event.trigger(markers[marker_id], 'click');
-    if (currentTrigger) {
-      markers[marker_id].setAnimation(null);
-    }
-    currentTrigger = markers[marker_id];
-    markers[marker_id].setAnimation(google.maps.Animation.BOUNCE);
+/* Get user location through HTML5 Geolocation */
+function getUserLocation(url){
+  // Try HTML5 geolocation
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      if (pos) updateUserLocation(pos, url);  // Update user location via Ajax
+    }, function() {
+      handleNoGeolocation(true);
+    });
+  } 
+  else {
+    // Browser doesn't support Geolocation
+    handleNoGeolocation(false);
+  }
+}
 
+/* Update user location via Ajax */
+function updateUserLocation(pos, url){
+  $.post(url, { location : pos.toString().slice(1,-1) });
+}
+
+/* Handle geo_error.html messages */
+function handleNoGeolocation(errorFlag) {
+  if (errorFlag) {
+    $('#geo-error-geolocation').show();
+  } 
+  else {
+    $('#geo-error-browser').show();
+  }
+}
+
+/* Bind InfoWindow to a marker, triggered upon click */
+function bindInfo(marker, contentString, infowindow) {
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent(contentString);
+    infowindow.open(map, marker);
+    // remove the bounce from the "old" marker
+    if (currentMarker) currentMarker.setAnimation(null);
+    // set this marker to the currentMarker
+    currentMarker = marker;
+    // add a bounce to this marker
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  });
+  google.maps.event.addListener(infowindow, 'domready', function() {
+    // whatever you want to do once the DOM is ready    
+  });
+}
+
+/* Control animation on marker */
+function markerTriggerHover(marker_id){
+  // `markers' is a global array holding marker objects
+  google.maps.event.trigger(markers[marker_id], 'click');
+  if (currentTrigger) {
+    markers[marker_id].setAnimation(null);
+  }
+  currentTrigger = markers[marker_id];
+  markers[marker_id].setAnimation(google.maps.Animation.BOUNCE);
 }
 
 function markerTriggerClick(marker_id){
     google.maps.event.trigger(markers[marker_id], 'click');
 }
 
-function updateUserLocation(pos){
-
-}
-
-google.maps.event.addDomListener(window, 'load', initialize);
 </script>
