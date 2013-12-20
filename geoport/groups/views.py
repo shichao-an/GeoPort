@@ -100,7 +100,7 @@ def settings(request):
 
 @login_required
 def tag(request, slug):
-    pass
+    return render(request, 'portal/devops.html')
 
 
 @login_required
