@@ -1,0 +1,19 @@
+<script>
+var leave_url = "{% url 'events:leave' group_slug=group.slug event_id=event.id %}";
+var participate_url = "{% url 'events:participate' group_slug=group.slug event_id=event.id %}";
+
+$(document).on("click", '#leave-button', function() { 
+  $.post(leave_url, {}, function(data){
+    if (data.success){
+      var button = $('#leave-button');
+      button.attr('id', 'participate-button');
+      button.attr('class', 'btn btn-primary btn-lg btn-block');
+      button.attr('href', participate_url);
+      button.html('Participate');
+    }
+    else
+      alert(data.message)
+  });
+});
+
+</script>

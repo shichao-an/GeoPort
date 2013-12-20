@@ -2,9 +2,9 @@
   <div class="sidebar-block-right" style="margin:0 0 1em 0">
     <li class="list-group-item">
     {% if request.user in event.users %}
-      <a type="button" id="quit-button" class="btn btn-warning btn-lg btn-block">Leave</a>
+      <a type="button" id="leave-button" class="btn btn-warning btn-lg btn-block">Leave</a>
     {% else %}
-      <a href="{% url 'events:participate' group_slug=group.slug event_id=event.id %}" type="button" id="join-button" class="btn btn-primary btn-lg btn-block">Participate</a>
+      <a href="{% url 'events:participate' group_slug=group.slug event_id=event.id %}" type="button" id="participate-button" class="btn btn-primary btn-lg btn-block">Participate</a>
     {% endif %}
     </li>
   </div>

@@ -166,12 +166,12 @@ class Group(Document):
         else:
             raise Exception('This user is already the creator.')
 
-    def remove_member(self, user):
+    def remove_member(self, user, member_type=None):
         """Remove a user (member) from the group
         Removing an non-existent user will not raise exceptions.
         """
         if user != self.creator:
-            member = Member(user=user)
+            member = Member(user=user, member_type=None)
             self.update(pull__members=member)
         else:
             raise Exception('The creator cannot be removed.')

@@ -10,5 +10,7 @@ urlpatterns = patterns('',
         'events.views.participate', name='participate'),
     url(r'^event/(?P<group_slug>[\w.@+-]+)/(?P<event_id>[\w.@+-]+)/query/markers/$',
         'events.ajax.markers', name='markers'),
+    url(r'^event/(?P<group_slug>[\w.@+-]+)/(?P<event_id>[\w.@+-]+)/query/leave/$',
+        'events.ajax.leave', name='leave'),
 )
 

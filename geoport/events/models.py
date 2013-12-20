@@ -116,13 +116,15 @@ class Event(Document):
     def add_participant(self, user, visible):
         if user == self.creator:
             raise Exception('Event creator cannot participate.')
-        # Add this user to the group
+        # Add this user to the group if not a member
+        if user not in self.group.regular_users:
+            self.group.add_member(user)
         p = Participant(user=user, visible=visible)
         self.update(add_to_set__participants=p)
 
-    def remove_participant(self, user):
+    def remove_participant(self, user, visible=True):
         if user in self.users:
-            participant = Participant(user=user)
+            participant = Participant(user=user, visible=visible)
             self.update(pull__participants=participant)
         else:
             raise Exception('This user is not a participant.')

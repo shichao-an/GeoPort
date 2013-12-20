@@ -46,6 +46,7 @@ function initialize() {
       fitBound();
     }
   });
+  {% if event.visible_users %}
   (function setParticipantMarkers() {
     $.ajax({
       url: eventMarkersUrl, 
@@ -55,10 +56,11 @@ function initialize() {
       },
       complete: function() {
         // Repeat every 2000 ms
-        setTimeout(setParticipantMarkers, 5000);
+        setTimeout(setParticipantMarkers, 7000);
       }
     });
   })();
+  {% endif %}
   //google.maps.event.trigger(map, 'resize');
 }
 

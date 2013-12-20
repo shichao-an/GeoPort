@@ -38,7 +38,7 @@
     </li>
     {% if request.user not in group.staff %}
       <li class="list-group-item">
-      {% if request.user in group.regular_members %}
+      {% if request.user in group.regular_users %}
         <a type="button" id="quit-button" class="btn btn-danger btn-lg btn-block">Quit</a>
       {% else %}
         <a type="button" id="join-button" class="btn btn-success btn-lg btn-block">Join</a>
