@@ -13,8 +13,9 @@
 </style>
 {% endblock %}
 {% block content %}
+{% url 'events:edit' group_slug=group.slug event_id=event.id as events_edit_url %}
 {% include "events/geo_errors.html" %}
-<h3 class="content-title">{{ event.title }}</h3>
+<h3 class="content-title">{{ event.title }} {% if request.user in group.staff %}<small><a class="text-muted" href="{{ events_edit_url }}">Edit</a></small>{% endif %}</h3>
 <p class="text-muted">From <a href="{{ group.get_absolute_url }}">{{ group.name }}</a></p>
 <div class="row">
   <div class="col-md-8">

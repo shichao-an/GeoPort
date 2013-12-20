@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="{% static 'bootstrap-tagsinput/dist/bootstrap-tagsinput.css' %}">
 {% endblock %}
 {% block content %}
-<h3 class="content-title">Edit Event</h3>
+<h3 class="content-title">Edit Event &ldquo;{{ form.instance.title }}&rdquo; <small><a class="text-muted" href="{{ event.get_absolute_url }}">Back</a></small></h3>
 {% include "events/event_form.html" %}
 {% endblock %}
 {% block javascript %}

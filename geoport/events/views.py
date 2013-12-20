@@ -34,6 +34,8 @@ def create(request, slug):
         group = Group.objects.get(slug=slug)
     except:
         raise Http404
+    if request.user not in group.staff:
+        return PermissionDenied
     context = {}
     context['group'] = group
     if request.method == 'POST':
@@ -53,6 +55,8 @@ def create(request, slug):
             form.initial = data
     else:
         form = EventForm()
+    #print 123, form.initial
+    #print form.initial['start_time']
     context['form'] = form
     return render(request, 'events/create.html', context)
 
@@ -67,8 +71,11 @@ def edit(request, group_slug, event_id):
         event = Event.objects.get(group=group, id=event_id)
     except:
         raise Http404
+    if request.user not in group.staff:
+        return PermissionDenied
     context = {}
     context['group'] = group
+    context['event'] = event
     if request.method == 'POST':
         form = EventForm(request.POST, request.FILES, instance=event)
         d = get_post_data(request, *form.fields)
@@ -89,7 +96,7 @@ def edit(request, group_slug, event_id):
         form.initial = get_initial_data(event, *form.fields)
         form.initial['tags'] = ','.join(form.initial['tags'])
     context['form'] = form
-    return render(request, 'events/create.html', context)
+    return render(request, 'events/edit.html', context)
 
 
 @login_required

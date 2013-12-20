@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="{% static "css/typeahead.css" %}">
 {% endblock %}
 {% block content %}
-<h3 class="content-title">{{ group.name }} Settings</h3>
+<h3 class="content-title">{{ group.name }} Settings <small><a class="text-muted" href="{{ group.get_absolute_url }}">Back</a></small></h3>
 {% include "groups/group_form.html" %}
 {% endblock %}
 {% block javascript %}

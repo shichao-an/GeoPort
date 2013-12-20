@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     'missing',
     'pagination_bootstrap',
     # Project apps
+    'geoport',
     'accounts',  # For autodiscover_tasks of Celery
     'groups',
 

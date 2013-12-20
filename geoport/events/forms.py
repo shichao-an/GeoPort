@@ -1,4 +1,5 @@
 from django import forms
+from django.utils import timezone
 from mongodbforms import DocumentForm
 from geoport.utils import get_location_by_address, DivErrorList
 from .models import Event
@@ -29,6 +30,22 @@ class EventForm(DocumentForm):
 
     def clean(self):
         cleaned_data = super(DocumentForm, self).clean()
+        start_time = cleaned_data['start_time']
+        if start_time < timezone.now():
+            msg = "Start time must be a future time."
+            self._errors['start_time'] = self.error_class([msg])
+            del cleaned_data['start_time']
+
+        # Clean `end_time' is `start_time' is valid
+        start_time = cleaned_data.get('start_time')
+        end_time = cleaned_data['end_time']
+        if start_time and end_time:
+            if end_time <= start_time:
+                msg = "End time must be later than start time."
+                self._errors['end_time'] = self.error_class([msg])
+                del cleaned_data['end_time']
+
+        # Clean `address'
         address = cleaned_data.get('address')
         zip_code = cleaned_data.get('zip_code')
         if address:

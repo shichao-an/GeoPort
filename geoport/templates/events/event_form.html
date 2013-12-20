@@ -1,7 +1,9 @@
-{% url 'events:create' as events_create_url %}
-
+{% load tz %}
+{% load custom_tags %}
+{% url 'groups:create_event' slug=group.slug as events_create_url %}
+{% url 'events:edit' group_slug=group.slug event_id=event.id as events_edit_url %}
 <div class="col-md-9">
-  <form class="form-horizontal" method="post" action="{{ events_create_url }}" enctype="multipart/form-data">
+  <form class="form-horizontal" method="post" action="." enctype="multipart/form-data">
 {% if form.errors %}
   {{ form.non_field_errors }}
 {% endif %}
@@ -38,14 +40,14 @@
     <label for="id_start_time" class="col-md-3 control-label ">{{ form.start_time.label }}</label>
     <div class="col-md-9">
       {{ form.start_time.errors }}
-      <input name="start_time" id="id_start_time" type="text" class="form-control datetimepicker" placeholder="{{ form.start_time.label }}" required value="{{ form.initial.start_time }}">
+      <input name="start_time" id="id_start_time" type="text" class="form-control datetimepicker" placeholder="{{ form.start_time.label }}" required value="{% if form.initial.start_time|type == 'unicode' %}{{ form.initial.start_time }}{% else %}{{ form.initial.start_time|localtime|date:'Y-m-d H:i' }}{% endif %}">
     </div>
   </div>
   <div class="form-group">
     <label for="id_end_time" class="col-md-3 control-label ">{{ form.end_time.label }}</label>
     <div class="col-md-9">
       {{ form.end_time.errors }}
-      <input name="end_time" id="id_end_time" type="text" class="form-control datetimepicker" placeholder="{{ form.end_time.label }}" value="{{ form.initial.end_time }}">
+      <input name="end_time" id="id_end_time" type="text" class="form-control datetimepicker" placeholder="{{ form.end_time.label }}" value="{% if form.initial.end_time|type == 'unicode' %}{{ form.initial.end_time }}{% else %}{{ form.initial.end_time|localtime|date:'Y-m-d H:i' }}{% endif %}">
     </div>
   </div>
   <div class="form-group">
@@ -57,7 +59,11 @@
   </div>
   <div class="form-group">
     <div class="col-md-9 col-md-offset-3">
-      <button class="btn btn-large btn-primary" type="submit">Create</button>
+      {% if request.path == events_create_url %}
+        <button class="btn btn-large btn-primary" type="submit">Create</button>
+      {% elif request.path == events_edit_url %}
+        <button class="btn btn-large btn-primary" type="submit">Save</button>
+      {% endif %}
     </div>
   </div>
   </form>

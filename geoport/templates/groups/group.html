@@ -1,8 +1,8 @@
 {% extends "groups/base.html" %}
 {% block title %}{{ group.name }}{% endblock %}
 {% block content %}
-
-<h3 class="content-title">{{ group.name }}</h3>
+{% url 'groups:settings' slug=group.slug as groups_settings_url %}
+<h3 class="content-title">{{ group.name }} {% if request.user in group.staff %}<small><a class="text-muted" href="{{ groups_settings_url }}">Settings</a></small>{% endif %}</h3>
 <div class="row">
   <div class="col-md-8">
     {% include "groups/group_events.html" %}

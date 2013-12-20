@@ -1,11 +1,15 @@
 {% url 'groups:group' slug=group.slug as groups_group_url %}
 {% url 'groups:group_settings' slug=group.slug as groups_group_settings_url %}
 {% url 'groups:create_event' slug=group.slug as groups_create_event_url %}
+{% url 'events:edit' group_slug=group.slug event_id=event.id as events_edit_url %}
 <div class="sidebar-block">
   <div class="list-group">
     <li class="list-group-item list-group-header"><h3 class="list-group-header">Group</h3></li>
     <a class="list-group-item {% if request.path == groups_group_url %}active{% endif %}" href="{{ groups_group_url }}">Home</a>
     <a class="list-group-item {% if request.path == groups_group_settings_url %}active{% endif %}" href="{{ groups_group_settings_url }}">Settings</a>
     <a class="list-group-item {% if request.path == groups_create_event_url %}active{% endif %}" href="{{ groups_create_event_url }}">Create Event</a>
+    {% if event %}
+      <a class="list-group-item {% if request.path == events_edit_url %}active{% endif %}" href="{{ events_edit_url }}">Edit Event</a>
+    {% endif %}
   </div>
 </div>
