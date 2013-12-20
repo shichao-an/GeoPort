@@ -80,6 +80,39 @@ class Event(Document):
             participant.user for participant in self.participants
         ]
 
+    @property
+    def visible_users(self):
+        return [
+            participant.user for participant in self.participants
+            if participant.visible
+        ]
+
+    @property
+    def invisible_users(self):
+        return [
+            participant.user for participant in self.participants
+            if not participant.visible
+        ]
+
+    @property
+    def visible_participants(self):
+        return [
+            participant for participant in self.participants
+            if participant.visible
+        ]
+
+    @property
+    def ordered_participants(self):
+        """Visible/early participants have high order"""
+        return self.visible_participants + self.invisible_participants
+
+    @property
+    def invisible_participants(self):
+        return [
+            participant for participant in self.participants
+            if not participant.visible
+        ]
+
     def add_participant(self, user, visible):
         if user == self.creator:
             raise Exception('Event creator cannot participate.')

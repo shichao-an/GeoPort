@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from groups.models import Group
 from accounts.models import User
 from .models import Event
+from .utils import get_markers
 
 
 @require_GET
@@ -30,7 +31,7 @@ def markers(request, group_slug, event_id):
         data['message'] = 'You are neither the creator nor a participant.'
         return HttpResponse(json.dumps(data), content_type="application/json")
 
-    markers = []
+    markers = get_markers(event)
     data['code'] = 0
     data['success'] = True
     data['markers'] = markers

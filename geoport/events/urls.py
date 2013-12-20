@@ -8,5 +8,7 @@ urlpatterns = patterns('',
         'events.views.edit', name='edit'),
     url(r'^event/(?P<group_slug>[\w.@+-]+)/(?P<event_id>[\w.@+-]+)/participate/$',
         'events.views.participate', name='participate'),
+    url(r'^event/(?P<group_slug>[\w.@+-]+)/(?P<event_id>[\w.@+-]+)/query/markers/$',
+        'events.ajax.markers', name='markers'),
 )
 

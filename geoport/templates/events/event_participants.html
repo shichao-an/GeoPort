@@ -12,6 +12,6 @@
 <div class="sidebar-block-right">
   <div class="list-group">
     <li class="list-group-item list-group-panel-heading"><h4 class="user-list-group-header">Participants</h4></li>
-    {% include "groups/user_list_group.html" with users=event.participants category="participants" %}
+    {% include "groups/user_list_group.html" with users=event.ordered_participants category="participants" %}
   </div>
 </div>
