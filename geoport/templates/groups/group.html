@@ -3,6 +3,13 @@
 {% block content %}
 {% url 'groups:settings' slug=group.slug as groups_settings_url %}
 <h3 class="content-title">{{ group.name }} {% if request.user in group.staff %}<small><a class="text-muted" href="{{ groups_settings_url }}">Settings</a></small>{% endif %}</h3>
+{% if group.description %}
+  <div class="row">
+    <div class="col-md-8" style="margin:0.5em 0 1.5em 0">
+      {{ group.description }}
+    </div>
+  </div>
+{% endif %}
 <div class="row">
   <div class="col-md-8">
     {% include "groups/group_events.html" %}
@@ -15,39 +22,6 @@
 {% endblock %}
 
 {% block javascript %}
-<script>
-var join_url = "{% url 'groups:join' slug=group.slug %}";
-var quit_url = "{% url 'groups:quit' slug=group.slug %}";
-
-
-$(document).on("click", '#join-button', function() { 
-  $.post(join_url, {}, function(data){
-    if (data.success){
-      var button = $('#join-button');
-      button.attr('id', 'quit-button');
-      button.attr('class', 'btn btn-danger btn-lg btn-block');
-      button.html('Quit');
-    }
-    else
-      alert(data.message)
-  });
-});
-
-
-$(document).on("click", '#quit-button', function() { 
-  $.post(quit_url, {}, function(data){
-    if (data.success){
-      var button = $('#quit-button');
-      button.attr('id', 'join-button');
-      button.attr('class', 'btn btn-success btn-lg btn-block');
-      button.html('Join');
-    }
-
-    else
-      alert(data.message)
-  });
-});
-
-</script>
+  {% include "groups/js/join.html" %}
   {% include "ajax_token.html" %}
 {% endblock %}

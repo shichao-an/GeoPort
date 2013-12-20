@@ -116,6 +116,7 @@ class Event(Document):
     def add_participant(self, user, visible):
         if user == self.creator:
             raise Exception('Event creator cannot participate.')
+        # Add this user to the group
         p = Participant(user=user, visible=visible)
         self.update(add_to_set__participants=p)
 

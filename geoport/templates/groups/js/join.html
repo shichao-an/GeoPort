@@ -1,0 +1,34 @@
+<script>
+var join_url = "{% url 'groups:join' slug=group.slug %}";
+var quit_url = "{% url 'groups:quit' slug=group.slug %}";
+
+
+$(document).on("click", '#join-button', function() { 
+  $.post(join_url, {}, function(data){
+    if (data.success){
+      var button = $('#join-button');
+      button.attr('id', 'quit-button');
+      button.attr('class', 'btn btn-danger btn-lg btn-block');
+      button.html('Quit');
+    }
+    else
+      alert(data.message)
+  });
+});
+
+
+$(document).on("click", '#quit-button', function() { 
+  $.post(quit_url, {}, function(data){
+    if (data.success){
+      var button = $('#quit-button');
+      button.attr('id', 'join-button');
+      button.attr('class', 'btn btn-success btn-lg btn-block');
+      button.html('Join');
+    }
+
+    else
+      alert(data.message)
+  });
+});
+
+</script>
