@@ -37,8 +37,28 @@ function initialize() {
 
   // Set marker for current event
   setEventMarker();
-  setParticipantMarkers();
 
+  // Initial set markers
+  $.ajax({
+    url: eventMarkersUrl, 
+    success: function(data) {
+      setMarkers(data.markers);
+      fitBound();
+    }
+  });
+  (function setParticipantMarkers() {
+    $.ajax({
+      url: eventMarkersUrl, 
+      success: function(data) {
+        setMarkers(data.markers);
+        //fitBound();
+      },
+      complete: function() {
+        // Repeat every 2000 ms
+        setTimeout(setParticipantMarkers, 5000);
+      }
+    });
+  })();
   //google.maps.event.trigger(map, 'resize');
 }
 
@@ -58,12 +78,6 @@ function setEventMarker() {
   bindInfo(marker, eventContent, infoWindow);
 }
 
-function setParticipantMarkers() {
-  $.get(eventMarkersUrl, function( data ) {
-    setMarkers(data.markers);
-    fitBound();
-  });
-}
 
 function setMarkers(data) {
   // First, delete existing markers if any
@@ -73,7 +87,7 @@ function setMarkers(data) {
     var currentPos = new google.maps.LatLng(data[i].lat, data[i].lon);
     var marker = new google.maps.Marker({
       position: currentPos,
-      animation: google.maps.Animation.DROP,
+      //animation: google.maps.Animation.DROP,
       map: map,
       icon: data[i].pin, 
       title: data[i].name

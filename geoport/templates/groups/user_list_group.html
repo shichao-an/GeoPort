@@ -1,7 +1,6 @@
 <div class="user-list-group">
   <ul class="list-group" style="margin:10px">
     {% for user in users %}
-      
       {% if event and user in event.visible_participants %}
         <li class="list-group-item visible-participant">
         <div class="row" onmouseover="markerTriggerHover({{ forloop.counter0 }})" onclick="markerTriggerClick({{ forloop.counter0 }})">
