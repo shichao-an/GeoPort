@@ -1,6 +1,6 @@
 import json
 from django.http import HttpResponse
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_GET, require_POST
 from django.contrib.auth.decorators import login_required
 from .models import User
 
@@ -26,19 +26,24 @@ def users(request):
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
+@require_POST
 @login_required
 def location(request):
+    """Update user location"""
     data = {}
     data['success'] = True
     data['code'] = 0
     if request.method == 'POST':
         # `raw_location' is a comma-separated string
-        print request.POST
         raw_location = request.POST.get('location')
-        print 1, raw_location
         if raw_location:
             location = [float(s.strip()) for s in raw_location.split(',')]
             # Perform atomic update of location on this user
-            request.user.update(set__location=location)
-            return HttpResponse(json.dumps(data),
-                                content_type="application/json")
+            if len(location) == 2:
+                request.user.update(set__location=location)
+                return HttpResponse(json.dumps(data),
+                                    content_type="application/json")
+    data['success'] = False
+    data['code'] = 1
+    data['message'] = 'Invalid location.'
+    return HttpResponse(json.dumps(data), content_type="application/json")
