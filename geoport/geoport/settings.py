@@ -216,14 +216,7 @@ LOGIN_REDIRECT_URL = "/"
 
 # django-bower
 BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_PATH, 'components')
-
-BOWER_INSTALLED_APPS = (
-    'bootstrap-hover-dropdown',
-    'bootstrap-tagsinput',
-    'sprintf',
-    'typeahead.js',
-    'hogan',
-)
+from .bower import BOWER_INSTALLED_APPS
 
 # django-storages settings are in settings_production.py
 # File categories that determine file directories

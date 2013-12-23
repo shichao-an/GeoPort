@@ -11,6 +11,9 @@ tmp="test_sed.tmp"
 brew="/usr/local/bin/brew"
 gsed="/usr/local/bin/gsed"
 req="requirements.txt"
+proj="geoport"
+manage="$proj/manage.py"  # manage.py path
+bower="$proj/$proj/bower.py"  # `BOWER_INSTALLED_APPS'
 
 # Test sed command
 touch $tmp
@@ -27,6 +30,8 @@ then
 fi
 
 pip freeze > $req
+echo '# flake8: noqa' > "$bower"  # flake8 exclusion
+$manage bower_freeze >> "$bower"
 
 for exception in "${exceptions[@]}"
 do

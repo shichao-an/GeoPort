@@ -2,6 +2,8 @@
 # This is the setup script for development environment.
 # Run this only once the first time you cloned the repository.
 
+
+manage="$proj/manage.py"  # manage.py path
 pre_commit=".git/hooks/pre-commit"
 
 install_git_hook(){
@@ -23,6 +25,7 @@ fi
 echo "Installing dependency packages..."
 easy_install -U setuptools
 pip install -r requirements.txt
+"$manage" bower_install
 
 if [ "$?" -ne "0" ]
 then
