@@ -8,6 +8,8 @@ settings_production.py
 deploy.sh
 geoport/media
 celeryd.conf
+commit
+
 
 # Temporary files
 *.log
