@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     'djsupervisor',
     'missing',
     'pagination_bootstrap',
+    'favicon',
     # Project apps
     'geoport',
     'accounts',  # For autodiscover_tasks of Celery
@@ -225,6 +226,9 @@ FILE_CATEGORIES = (
     'uploads',
     'deleted',
 )
+
+# django-favicon
+FAVICON_PATH = STATIC_URL + 'img/favicon.png'
 
 # Credentials
 try:

@@ -11,5 +11,9 @@ urlpatterns = patterns('',
     url(r'^search/', include('search.urls', namespace='search')),
     url(r'^friends/', include('friends.urls', namespace='friends')),
     url(r'^user/(?P<username>[\w.@+-]+)/$', 'accounts.views.user', name='user'),
-    url('', include('social.apps.django_app.urls', namespace='social')),
+
+    # Third-party URL includes
+    url(r'', include('social.apps.django_app.urls', namespace='social')),
+    url(r'', include('favicon.urls')),
+
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
