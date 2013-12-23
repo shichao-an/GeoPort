@@ -231,7 +231,7 @@ FILE_CATEGORIES = (
 )
 
 # django-favicon
-FAVICON_PATH = STATIC_URL + 'img/favicon.png'
+FAVICON_PATH = os.path.join(STATIC_URL, 'img/favicon.png')
 
 # Credentials
 try:
