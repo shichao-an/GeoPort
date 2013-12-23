@@ -217,7 +217,10 @@ LOGIN_REDIRECT_URL = "/"
 
 # django-bower
 BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_PATH, 'components')
-from .bower import BOWER_INSTALLED_APPS
+try:
+    from .bower import BOWER_INSTALLED_APPS
+except:
+    pass
 
 # django-storages settings are in settings_production.py
 # File categories that determine file directories
