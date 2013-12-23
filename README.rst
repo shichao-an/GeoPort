@@ -19,4 +19,4 @@ Servers:
 Packages:
 
 - Python packages: see requirements.txt
-- JavaScript package: see bower.txt
+- JavaScript packages: see geoport/geoport/bower.py
