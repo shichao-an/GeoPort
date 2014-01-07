@@ -51,6 +51,13 @@
     </div>
   </div>
   <div class="form-group">
+    <label for="id_size" class="col-md-3 control-label">{{ form.size.label }}</label>
+    <div class="col-md-9">
+      {{ form.size.errors }}
+      <input name="size" id="id_size" type="text" class="form-control" placeholder="Mininum 1 and leave blank for unlimited" value="{{ form.initial.size }}">
+    </div>
+  </div>
+  <div class="form-group">
     <label for="id_tags" class="col-md-3 control-label">Tags</label>
     <div class="col-md-9">
       {{ form.tags.errors }}
