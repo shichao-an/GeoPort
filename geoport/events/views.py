@@ -85,7 +85,6 @@ def edit(request, group_slug, event_id):
             event.group = group
             event.tags = form.cleaned_data['tags']
             event.location = form.cleaned_data['location']
-            print event.location
             event.save()
             return HttpResponseRedirect(event.get_absolute_url())
         else:

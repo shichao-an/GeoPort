@@ -36,27 +36,29 @@
       <input name="zip_code" id="id_zip_code" type="text" class="form-control" placeholder="{{ form.zip_code.label }}" value="{{ form.initial.zip_code }}">
     </div>
   </div>
-  <div class="form-group">
-    <label for="id_start_time" class="col-md-3 control-label ">{{ form.start_time.label }}</label>
-    <div class="col-md-9">
-      {{ form.start_time.errors }}
-      <input name="start_time" id="id_start_time" type="text" class="form-control datetimepicker" placeholder="{{ form.start_time.label }}" required value="{% if form.initial.start_time|type == 'unicode' %}{{ form.initial.start_time }}{% else %}{{ form.initial.start_time|localtime|date:'Y-m-d H:i' }}{% endif %}">
+  {% if not event.has_started %}
+    <div class="form-group">
+      <label for="id_start_time" class="col-md-3 control-label ">{{ form.start_time.label }}</label>
+      <div class="col-md-9">
+        {{ form.start_time.errors }}
+        <input name="start_time" id="id_start_time" type="text" class="form-control datetimepicker" placeholder="{{ form.start_time.label }}" required value="{% if form.initial.start_time|type == 'unicode' %}{{ form.initial.start_time }}{% else %}{{ form.initial.start_time|localtime|date:'Y-m-d H:i' }}{% endif %}">
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="id_end_time" class="col-md-3 control-label ">{{ form.end_time.label }}</label>
-    <div class="col-md-9">
-      {{ form.end_time.errors }}
-      <input name="end_time" id="id_end_time" type="text" class="form-control datetimepicker" placeholder="{{ form.end_time.label }}" value="{% if form.initial.end_time|type == 'unicode' %}{{ form.initial.end_time }}{% else %}{{ form.initial.end_time|localtime|date:'Y-m-d H:i' }}{% endif %}">
+    <div class="form-group">
+      <label for="id_end_time" class="col-md-3 control-label ">{{ form.end_time.label }}</label>
+      <div class="col-md-9">
+        {{ form.end_time.errors }}
+        <input name="end_time" id="id_end_time" type="text" class="form-control datetimepicker" placeholder="{{ form.end_time.label }}" value="{% if form.initial.end_time|type == 'unicode' %}{{ form.initial.end_time }}{% else %}{{ form.initial.end_time|localtime|date:'Y-m-d H:i' }}{% endif %}">
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="id_size" class="col-md-3 control-label">{{ form.size.label }}</label>
-    <div class="col-md-9">
-      {{ form.size.errors }}
-      <input name="size" id="id_size" type="text" class="form-control" placeholder="Mininum 1 and leave blank for unlimited" value="{{ form.initial.size }}">
+    <div class="form-group">
+      <label for="id_size" class="col-md-3 control-label">{{ form.size.label }}</label>
+      <div class="col-md-9">
+        {{ form.size.errors }}
+        <input name="size" id="id_size" type="text" class="form-control" placeholder="Mininum 1 and leave blank for unlimited" value="{{ form.initial.size }}">
+      </div>
     </div>
-  </div>
+  {% endif %}
   <div class="form-group">
     <label for="id_tags" class="col-md-3 control-label">Tags</label>
     <div class="col-md-9">

@@ -12,12 +12,13 @@ class EventForm(DocumentForm):
         model = Event
         fields = (
             'title', 'description', 'address', 'zip_code', 'start_time',
-            'end_time', 'size',
+            'end_time', 'participate_time', 'size',
         )
 
     tags = forms.CharField(required=False)
     start_time = forms.DateTimeField()  # Override SplitDateTimeField
     end_time = forms.DateTimeField(required=False)  # Ditto
+    participate_time = forms.DateTimeField(required=False)  # Ditto
 
     def __init__(self, *args, **kwargs):
         kwargs['error_class'] = DivErrorList
@@ -30,20 +31,31 @@ class EventForm(DocumentForm):
 
     def clean(self):
         cleaned_data = super(DocumentForm, self).clean()
-        start_time = cleaned_data['start_time']
-        if start_time < timezone.now():
-            msg = "Start time must be a future time."
-            self._errors['start_time'] = self.error_class([msg])
-            del cleaned_data['start_time']
+        # If event has not started or new event (create)
+        if self.instance.has_started is not True:
+            start_time = cleaned_data['start_time']
+            if start_time < timezone.now():
+                msg = "Start time must be a future time."
+                self._errors['start_time'] = self.error_class([msg])
+                del cleaned_data['start_time']
 
-        # Clean `end_time' is `start_time' is valid
-        start_time = cleaned_data.get('start_time')
-        end_time = cleaned_data['end_time']
-        if start_time and end_time:
-            if end_time <= start_time:
-                msg = "End time must be later than start time."
-                self._errors['end_time'] = self.error_class([msg])
-                del cleaned_data['end_time']
+            # Clean `end_time' and `start_time'
+            start_time = cleaned_data.get('start_time')
+            end_time = cleaned_data['end_time']
+            if start_time and end_time:
+                if end_time <= start_time:
+                    msg = "End time must be later than start time."
+                    self._errors['end_time'] = self.error_class([msg])
+                    del cleaned_data['end_time']
+
+            # Clean `participate_time'
+            participate_time = cleaned_data.get('participate_time')
+            if participate_time:
+                if (participate_time > start_time
+                        or participate_time < timezone.now()):
+                    msg = "Participate time must be between now and start time"
+                    self._errors['participate_time'] = self.error_class([msg])
+                    del cleaned_data['participate_time']
 
         # Clean `address'
         address = cleaned_data.get('address')

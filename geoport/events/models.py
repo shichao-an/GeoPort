@@ -35,6 +35,7 @@ class Event(Document):
     date_created = DateTimeField(required=True)
     start_time = DateTimeField(required=True)
     end_time = DateTimeField()
+    participate_time = DateTimeField()  # When to allow participation
     size = IntField(min_value=1)  # Size cannot be changed after start
     tags = ListField(StringField())
     meta = {
@@ -133,6 +134,14 @@ class Event(Document):
         """Edit the visibility of a participant user."""
         events = Event.objects(id=self.id, participants__user=user)
         events.update_one(set__participants__S__visible=visible)
+
+    @property
+    def has_started(self):
+        return timezone.now() >= self.start_time
+
+    @property
+    def has_ended(self):
+        return timezone.now() >= self.end_time
 
 # Attaching events
 signals.pre_init.connect(auto_now_add, Event)
