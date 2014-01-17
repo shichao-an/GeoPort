@@ -7,11 +7,14 @@
 {% endblock %}
 {% block content %}
 <div class="row">
-  <div class="jumbotron portal-well" style="text-align:center">
-    <h2>Welcome To GeoPort</h2>
-    <p class="lead">Locate your friends and highlight events by leveraging Google Maps. Make real-time location sharing simple and intuitive. Build your geo-social graph by finding users, events and groups on the map.</p>
-
-    <p><a class="btn btn-lg btn-success" href="{% url 'accounts:signup' %}" role="button">Sign up today</a></p>
+  <div class="jumbotron portal-well">
+    <h2 class="text-center">Welcome To <span style="font-weight: normal">GeoPort</span></h2>
+    <ul class="lead list-unstyled list-portal">
+      <li><span class="glyphicon glyphicon-map-marker"></span> Locate your friends and highlight events by leveraging Google Maps.</li>
+      <li><span class="glyphicon glyphicon-map-marker"></span> Make real-time location sharing simple and intuitive.</li>
+      <li><span class="glyphicon glyphicon-map-marker"></span> Build your geo-social graph by finding users, events and groups on the map.</li>
+    </ul>
+    <p class="text-center"><a class="btn btn-lg btn-success" href="{% url 'accounts:signup' %}" role="button">Start Geoporting Today</a></p>
   </div>
 </div>
 {% endblock %}

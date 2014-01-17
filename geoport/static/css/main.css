@@ -203,7 +203,7 @@ h4.user-list-group-header {
 }
 
 .portal-well {
-    margin: 0;
+    margin: 24px;
 }
 
 .table>tbody>tr>td {
@@ -243,6 +243,13 @@ h4.event-info {
     background-color: #f5f5f5;
 }
 
+ul.list-portal {
+    margin-left: 2em;
+    font-size: 20px;
+}
+ul.list-portal li {
+    padding: 5px 0;
+}
 /* Fixes for Bootswatch Yeti style starts */
 /* Fix border-radius */
 
