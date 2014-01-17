@@ -4,8 +4,8 @@
 # Credentials and production
 credentials.py
 credentials_production.py
-settings_production.py
 deploy.sh
+post_deploy.sh
 geoport/media
 celeryd.conf
 commit
