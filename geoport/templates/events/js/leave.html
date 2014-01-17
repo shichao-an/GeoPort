@@ -10,6 +10,7 @@ $(document).on("click", '#leave-button', function() {
       button.attr('class', 'btn btn-primary btn-lg btn-block');
       button.attr('href', participate_url);
       button.html('Participate');
+      location.reload();
     }
     else
       alert(data.message)

@@ -10,6 +10,7 @@ $(document).on("click", '#join-button', function() {
       button.attr('id', 'quit-button');
       button.attr('class', 'btn btn-danger btn-lg btn-block');
       button.html('Quit');
+      location.reload();
     }
     else
       alert(data.message)
@@ -24,6 +25,7 @@ $(document).on("click", '#quit-button', function() {
       button.attr('id', 'join-button');
       button.attr('class', 'btn btn-success btn-lg btn-block');
       button.html('Join');
+      location.reload();
     }
 
     else
