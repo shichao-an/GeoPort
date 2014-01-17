@@ -247,9 +247,11 @@ ul.list-portal {
     margin-left: 2em;
     font-size: 20px;
 }
+
 ul.list-portal li {
     padding: 5px 0;
 }
+
 /* Fixes for Bootswatch Yeti style starts */
 /* Fix border-radius */
 
