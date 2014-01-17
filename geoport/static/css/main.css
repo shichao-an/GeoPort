@@ -245,6 +245,7 @@ h4.event-info {
 
 /* Fixes for Bootswatch Yeti style starts */
 /* Fix border-radius */
+
 .bootstrap-tagsinput, #id_admins {
   border-radius: 0px !important;
 }
@@ -252,7 +253,9 @@ h4.event-info {
 .tt-dropdown-menu {
   border-radius: 0px !important;
 }
+
 /* Fix list-item font weight */
+
 .list-group-item {
     font-weight: normal;
 }
@@ -265,8 +268,9 @@ p {
 #id_admins {
     font-size: 12px;
 }
+
 .tt-dropdown-menu {
     font-size: 12px;
 }
-/* Fixes for Bootswatch Yeti style ends */
 
+/* Fixes for Bootswatch Yeti style ends */
