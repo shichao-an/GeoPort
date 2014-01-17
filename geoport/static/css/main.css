@@ -18,9 +18,9 @@ h6,
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* Custom navbar */
+/* Custom navbar starts */
 /* http://smarchal.com/twbscolor/?bd=78aad6&bh=428bca&cd=ffffff&ch=d6d6d6 */
-
+/*
 .navbar-default {
     background-color: #78aad6;
     border-color: none;
@@ -85,6 +85,8 @@ h6,
         color: #d6d6d6;
     }
 }
+*/
+/* Custom navbar ends */
 
 # Styles of major components
 .content {
