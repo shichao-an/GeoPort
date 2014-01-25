@@ -2,11 +2,11 @@
 {% block title %}Profile{% endblock %}
 {% block content %}
 
-{%if not is_other %}
+{% if is_other %}
 <h3 style="color:#428bca">{{ user.first_name }} {{ user.last_name }}</h3>
-{%else%}
+{% else %}
 <h3 style="color:#428bca">{{ request.user.first_name }} {{ request.user.last_name }}</h3>
-{%endif%}
+{% endif %}
 <div class="thumbnail pull-right">
   <a href="{% url 'accounts:avatar' %}" class="pull-right">
     {%if not is_other%}
